@@ -7,7 +7,7 @@
 
 <div class="max-w-7xl mx-auto px-6 py-12" x-data="schedulePage()">
     <!-- Header -->
-    <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-10">
+    <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-10 reveal">
         <div>
             <div class="uppercase tracking-[3px] text-xs text-lumina-sage">RONDEBOSCH • CAPE TOWN</div>
             <h1 class="section-title text-6xl tracking-[-1.5px] mt-2">The Schedule</h1>
@@ -48,7 +48,7 @@
     </div>
 
     <!-- Stunning Live Schedule Grid -->
-    <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3" id="schedule-grid">
+    <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3 reveal" id="schedule-grid">
         @foreach (var cls in Model.UpcomingClasses)
         {
             var imageUrl = cls.ClassType.Modalities.Contains("Yoga") 

@@ -157,15 +157,61 @@
         transform: scale(1.06);
       }
 
-      /* Subtle Scroll Animations */
+      /* === CRISP & SMOOTH DESIGN SYSTEM === */
+
+      /* Premium sticky header — shrinks + strengthens on scroll for crisp feel */
+      .lumina-nav {
+        background: rgba(247, 244, 239, 0.82);
+        backdrop-filter: blur(16px);
+        border-bottom: 1px solid rgba(139, 154, 125, 0.12);
+        transition: all 0.35s cubic-bezier(0.23, 1, 0.32, 1);
+      }
+      .lumina-nav.scrolled {
+        background: rgba(247, 244, 239, 0.96);
+        backdrop-filter: blur(24px);
+        box-shadow: 0 8px 25px -12px rgb(47 44 39 / 0.08);
+        border-bottom-color: rgba(139, 154, 125, 0.18);
+      }
+      .lumina-nav.scrolled .h-16 {
+        height: 3.5rem; /* 56px — subtle elegant shrink */
+      }
+
+      /* Stronger, more premium brand title treatment */
+      header a.group:hover .text-\[27px\] {
+        letter-spacing: -1.1px;
+      }
+
+      /* Enhanced scroll reveals — crisp, staggered, performant */
       .reveal {
         opacity: 0;
-        transform: translateY(20px);
-        transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+        transform: translateY(26px);
+        transition: opacity 0.65s cubic-bezier(0.23, 1, 0.32, 1), 
+                    transform 0.65s cubic-bezier(0.23, 1, 0.32, 1);
+        will-change: transform, opacity;
       }
       .reveal.visible {
         opacity: 1;
         transform: translateY(0);
+      }
+      .reveal-delay-1 { transition-delay: 80ms; }
+      .reveal-delay-2 { transition-delay: 160ms; }
+      .reveal-delay-3 { transition-delay: 240ms; }
+
+      /* Subtle parallax helper for hero imagery (very light) */
+      .parallax-bg {
+        transition: transform 0.1s linear;
+        will-change: transform;
+      }
+
+      /* Snappier, crisp card & button feel */
+      .premium-card {
+        transition: transform 0.45s cubic-bezier(0.23, 1, 0.32, 1), 
+                    box-shadow 0.45s cubic-bezier(0.23, 1, 0.32, 1),
+                    border-color 0.3s ease;
+      }
+      .premium-card:hover {
+        transform: translateY(-9px);
+        box-shadow: 0 28px 55px -15px rgb(0 0 0 / 0.14);
       }
     </style>
     
@@ -179,17 +225,20 @@
         Skip to main content
     </a>
 
-    <header class="lumina-nav sticky top-0 z-40">
+    <header id="main-header" class="lumina-nav sticky top-0 z-50 transition-all duration-300">
         <nav class="max-w-7xl mx-auto px-6">
-            <div class="flex h-16 items-center justify-between">
-                <!-- Logo -->
-                <a asp-page="/Index" class="flex items-center gap-x-3 group">
-                    <div class="w-9 h-9 rounded-2xl bg-lumina-sage flex items-center justify-center">
-                        <span class="text-white text-xl font-light tracking-[-1.5px]">L</span>
+            <div class="flex h-16 items-center justify-between transition-all duration-300">
+                <!-- Premium Brand Title - stands out more, crisp & elegant -->
+                <a asp-page="/Index" class="flex items-center gap-x-3.5 group">
+                    <div class="w-10 h-10 rounded-2xl bg-lumina-sage flex items-center justify-center ring-1 ring-white/30 shadow-sm group-hover:scale-[1.03] transition-transform">
+                        <span class="text-white text-2xl font-light tracking-[-2px]">L</span>
                     </div>
-                    <div>
-                        <div class="font-semibold text-2xl tracking-tight text-lumina-charcoal group-hover:text-lumina-sage transition-colors">Lumina</div>
-                        <div class="text-[10px] text-lumina-sage -mt-1.5 tracking-[1px]">RONDEBOSCH</div>
+                    <div class="flex flex-col">
+                        <div class="font-semibold text-[27px] md:text-[29px] tracking-[-1.25px] text-lumina-charcoal group-hover:text-lumina-sage transition-colors leading-none">Lumina</div>
+                        <div class="flex items-center gap-x-1.5 -mt-0.5">
+                            <div class="h-px w-3 bg-lumina-gold/60"></div>
+                            <div class="text-[9.5px] text-lumina-sage tracking-[2.2px] font-medium">RONDEBOSCH</div>
+                        </div>
                     </div>
                 </a>
 
