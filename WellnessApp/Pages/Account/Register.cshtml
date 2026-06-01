@@ -4,49 +4,49 @@
     ViewData["Title"] = "Join Lumina";
 }
 
-<div class="max-w-md mx-auto px-6 py-16">
-    <div class="text-center mb-10">
-        <div class="text-xs tracking-[3px] text-lumina-sage">JOIN LUMINA</div>
-        <h1 class="section-title text-5xl tracking-tight mt-3">Begin your practice</h1>
-        <p class="mt-4 text-lumina-charcoal/70 max-w-xs mx-auto">Create your account and tell us how you want to move. This helps us support you beautifully from the very beginning.</p>
+<div class="max-w-md mx-auto px-6 py-14">
+    <div class="text-center mb-8">
+        <div class="text-[10px] tracking-[3.5px] text-lumina-sage">JOIN LUMINA</div>
+        <h1 class="text-5xl font-light tracking-[-1.6px] mt-2">Begin your practice</h1>
+        <p class="mt-3 text-lumina-charcoal/70">Tell us how you want to move so we can support you beautifully from day one.</p>
     </div>
 
-    <form method="post" class="space-y-5">
+    <form method="post" class="space-y-4 bg-white border border-lumina-sage-light/60 rounded-3xl p-7">
         <div>
-            <label class="block text-sm mb-1.5">Full Name</label>
-            <input asp-for="Input.FullName" class="w-full rounded-2xl border border-lumina-sage-light px-4 py-3" />
+            <label class="block text-xs tracking-widest text-lumina-sage mb-1.5">FULL NAME</label>
+            <input asp-for="Input.FullName" class="w-full rounded-2xl border border-lumina-sage-light bg-white px-5 py-3.5 text-base focus:border-lumina-sage transition" />
         </div>
 
         <div class="grid grid-cols-2 gap-4">
-            <div class="space-y-1.5">
-                <label class="text-sm text-lumina-charcoal/80">Email</label>
-                <input asp-for="Input.Email" type="email" class="w-full rounded-2xl border border-lumina-sage-light bg-white px-5 py-3.5 text-lg focus:border-lumina-sage transition" />
+            <div>
+                <label class="block text-xs tracking-widest text-lumina-sage mb-1.5">EMAIL</label>
+                <input asp-for="Input.Email" type="email" class="w-full rounded-2xl border border-lumina-sage-light bg-white px-5 py-3.5 text-base focus:border-lumina-sage transition" />
             </div>
-            <div class="space-y-1.5">
-                <label class="text-sm text-lumina-charcoal/80">Pronouns <span class="text-xs text-lumina-charcoal/50">(optional)</span></label>
-                <input asp-for="Input.Pronouns" class="w-full rounded-2xl border border-lumina-sage-light bg-white px-5 py-3.5 text-lg focus:border-lumina-sage transition" placeholder="she/her, they/them..." />
+            <div>
+                <label class="block text-xs tracking-widest text-lumina-sage mb-1.5">PRONOUNS <span class="opacity-50">(opt)</span></label>
+                <input asp-for="Input.Pronouns" class="w-full rounded-2xl border border-lumina-sage-light bg-white px-5 py-3.5 text-base focus:border-lumina-sage transition" placeholder="they/them" />
             </div>
         </div>
 
-        <div class="space-y-1.5">
-            <label class="text-sm text-lumina-charcoal/80">Password</label>
-            <input asp-for="Input.Password" type="password" class="w-full rounded-2xl border border-lumina-sage-light bg-white px-5 py-3.5 text-lg focus:border-lumina-sage transition" />
+        <div>
+            <label class="block text-xs tracking-widest text-lumina-sage mb-1.5">PASSWORD</label>
+            <input asp-for="Input.Password" type="password" class="w-full rounded-2xl border border-lumina-sage-light bg-white px-5 py-3.5 text-base focus:border-lumina-sage transition" />
         </div>
 
-        <div class="space-y-1.5">
-            <label class="text-sm text-lumina-charcoal/80">What brings you here? <span class="text-xs text-lumina-charcoal/50">(optional)</span></label>
-            <textarea asp-for="Input.Goals" rows="2" class="w-full rounded-3xl border border-lumina-sage-light bg-white px-5 py-3.5 focus:border-lumina-sage transition" placeholder="Rehab, strength, nervous system reset..."></textarea>
+        <div>
+            <label class="block text-xs tracking-widest text-lumina-sage mb-1.5">WHAT BRINGS YOU HERE? <span class="opacity-50">(opt)</span></label>
+            <textarea asp-for="Input.Goals" rows="2" class="w-full rounded-3xl border border-lumina-sage-light bg-white px-5 py-3 focus:border-lumina-sage transition" placeholder="Strength, rest, rehab..."></textarea>
         </div>
 
-        <div class="space-y-1.5">
-            <label class="text-sm text-lumina-charcoal/80">Anything we should know to support you? <span class="text-xs text-lumina-charcoal/50">(optional)</span></label>
-            <textarea asp-for="Input.AccessibilityNeeds" rows="2" class="w-full rounded-3xl border border-lumina-sage-light bg-white px-5 py-3.5 focus:border-lumina-sage transition" placeholder="Injuries, preferences, neurodivergence..."></textarea>
+        <div>
+            <label class="block text-xs tracking-widest text-lumina-sage mb-1.5">HOW CAN WE SUPPORT YOU BEST? <span class="opacity-50">(opt)</span></label>
+            <textarea asp-for="Input.AccessibilityNeeds" rows="2" class="w-full rounded-3xl border border-lumina-sage-light bg-white px-5 py-3 focus:border-lumina-sage transition" placeholder="Injuries, neurodivergence, preferences..."></textarea>
         </div>
 
-        <button type="submit" class="w-full btn-lumina btn-lumina-primary py-4 text-lg mt-2">Create my account</button>
+        <button type="submit" class="w-full btn-lumina btn-lumina-primary py-4 text-base mt-2">Create my account</button>
 
-        <p class="text-center text-sm text-lumina-charcoal/60">
-            Already have an account? <a asp-page="/Account/Login" class="text-lumina-sage">Log in</a>
+        <p class="text-center text-sm text-lumina-charcoal/60 pt-1">
+            Already a member? <a asp-page="/Account/Login" class="text-lumina-sage font-medium">Log in</a>
         </p>
     </form>
 </div>

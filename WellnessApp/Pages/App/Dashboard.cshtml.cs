@@ -1,5 +1,6 @@
 using Lumina.Data;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 
@@ -62,6 +63,26 @@ public class DashboardModel : PageModel
 
         // Calculate real consecutive day streak (attended classes on consecutive calendar days)
         CurrentStreak = CalculateStreak(userId);
+    }
+
+    public async Task<IActionResult> OnPostSaveIntentionAsync(string intention)
+    {
+        var userId = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
+        if (string.IsNullOrWhiteSpace(userId) || string.IsNullOrWhiteSpace(intention))
+            return RedirectToPage();
+
+        // Save as a MemberNote for the instructor/owner visibility (modern wellness feature)
+        var note = new MemberNote
+        {
+            UserId = userId,
+            Note = $"[Intention] {intention}",
+            CreatedAt = DateTime.UtcNow
+        };
+        _db.MemberNotes.Add(note);
+        await _db.SaveChangesAsync();
+
+        TempData["IntentionSaved"] = "Thank you. Your intention is held.";
+        return RedirectToPage();
     }
 
     private int CalculateStreak(string userId)

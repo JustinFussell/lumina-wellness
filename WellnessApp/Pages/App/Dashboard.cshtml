@@ -170,17 +170,26 @@
     </div>
 
     <!-- Modern Intention Capture -->
-    <div class="mt-8 premium-card lumina-card p-7 bg-white border border-lumina-sage-light/60">
-        <div class="max-w-xl">
-            <div class="uppercase tracking-[2.5px] text-[10px] text-lumina-sage">BODY WISDOM</div>
-            <div class="text-2xl font-light tracking-tight mt-1">What are you practicing for this week?</div>
-            
-            <form class="mt-4 flex gap-3" method="post" asp-page-handler="SaveIntention">
-                <input type="text" name="intention" placeholder="I am moving to feel more grounded..." 
-                       class="flex-1 px-5 py-3.5 rounded-3xl border border-lumina-sage-light bg-lumina-cream/40 text-sm placeholder:text-lumina-charcoal/35 focus:outline-none focus:border-lumina-sage">
-                <button type="submit" class="btn-lumina btn-lumina-primary px-6 text-sm whitespace-nowrap">Hold this</button>
-            </form>
-            <p class="mt-2 text-[11px] text-lumina-charcoal/50">Small intentions create big shifts.</p>
+    @if (TempData["IntentionSaved"] is string savedMsg)
+    {
+        <div class="mt-8 p-4 bg-lumina-sage-light/40 border border-lumina-sage-light rounded-3xl text-center text-lumina-sage text-sm">
+            @savedMsg
         </div>
-    </div>
+    }
+    else
+    {
+        <div class="mt-8 premium-card lumina-card p-7 bg-white border border-lumina-sage-light/60">
+            <div class="max-w-xl">
+                <div class="uppercase tracking-[2.5px] text-[10px] text-lumina-sage">BODY WISDOM</div>
+                <div class="text-2xl font-light tracking-tight mt-1">What are you practicing for this week?</div>
+                
+                <form class="mt-4 flex gap-3" method="post" asp-page-handler="SaveIntention">
+                    <input type="text" name="intention" placeholder="I am moving to feel more grounded..." 
+                           class="flex-1 px-5 py-3.5 rounded-3xl border border-lumina-sage-light bg-lumina-cream/40 text-sm placeholder:text-lumina-charcoal/35 focus:outline-none focus:border-lumina-sage">
+                    <button type="submit" class="btn-lumina btn-lumina-primary px-6 text-sm whitespace-nowrap">Hold this</button>
+                </form>
+                <p class="mt-2 text-[11px] text-lumina-charcoal/50">Small intentions create big shifts.</p>
+            </div>
+        </div>
+    }
 </div>
