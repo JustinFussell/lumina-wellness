@@ -1,0 +1,82 @@
+# .NET / Visual Studio
+bin/
+obj/
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+*.userprefs
+*.pidb
+*.mdb
+*.opendb
+*.opensdf
+*.sdf
+*.cachefile
+*.dbmdl
+*.jfm
+*.pfx
+*.publishsettings
+orleans.codegen.cs
+
+# Build results
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+[Aa][Rr][Mm]/
+[Aa][Rr][Mm]64/
+bld/
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+[Ll]ogs/
+
+# NuGet
+packages/
+*.nupkg
+# The packages folder can be ignored for source control, but not if you use NuGet package restore in your project
+!**/packages/repositories.config
+# NuGet v3's project.json files produces more ignorable files
+*.nuget.props
+*.nuget.targets
+
+# Node / Tailwind
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnp
+.pnp.js
+
+# Tailwind output (we commit the built css for easy portfolio viewing)
+# If you prefer to build on deploy, uncomment the next line:
+# wwwroot/css/tailwind.output.css
+
+# Environment & secrets
+.env
+.env.local
+.env.*.local
+appsettings.Production.json
+appsettings.*.Production.json
+secrets.json
+
+# IDE
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Misc
+*.log
+*.bak
+*.tmp
+*.temp
+
+# Grok / AI session files (local only)
+.grok/

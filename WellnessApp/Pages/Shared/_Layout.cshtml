@@ -1,0 +1,107 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#8B9A7D" />
+    <title>@ViewData["Title"] — Lumina | Movement. Presence. Light.</title>
+    
+    <!-- Lumina Tailwind v4 (Play CDN for instant premium aesthetics during early dev) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              'lumina-sage': '#8B9A7D',
+              'lumina-cream': '#F7F4EF',
+              'lumina-charcoal': '#2F2C27',
+              'lumina-terracotta': '#B87D5C',
+              'lumina-gold': '#C9A87C',
+              'lumina-sage-light': '#E8EDE3',
+            },
+            fontFamily: {
+              'serif-display': ['Georgia', 'serif'],
+            }
+          }
+        }
+      }
+    </script>
+    
+    <!-- Lumina custom styles (works alongside CDN) -->
+    <link rel="stylesheet" href="~/css/tailwind.output.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    
+    <!-- PWA + Icons (prepared) -->
+    <link rel="manifest" href="~/manifest.json" />
+</head>
+<body class="bg-lumina-cream text-lumina-charcoal antialiased">
+    <!-- Skip to content for accessibility -->
+    <a href="#main-content" 
+       class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-white px-4 py-2 rounded-2xl shadow z-50">
+        Skip to main content
+    </a>
+
+    <header class="lumina-nav sticky top-0 z-40">
+        <nav class="max-w-7xl mx-auto px-6">
+            <div class="flex h-16 items-center justify-between">
+                <!-- Logo -->
+                <a asp-page="/Index" class="flex items-center gap-x-3 group">
+                    <div class="w-9 h-9 rounded-2xl bg-lumina-sage flex items-center justify-center">
+                        <span class="text-white text-xl font-light tracking-[-1.5px]">L</span>
+                    </div>
+                    <div>
+                        <div class="font-semibold text-2xl tracking-tight text-lumina-charcoal group-hover:text-lumina-sage transition-colors">Lumina</div>
+                        <div class="text-[10px] text-lumina-sage -mt-1.5 tracking-[1px]">RONDEBOSCH</div>
+                    </div>
+                </a>
+
+                <!-- Desktop Nav -->
+                <div class="hidden md:flex items-center gap-x-8 text-sm font-medium">
+                    <a asp-page="/Index" class="hover:text-lumina-sage transition-colors">Home</a>
+                    <a asp-page="/Schedule" class="hover:text-lumina-sage transition-colors">Schedule</a>
+                    <a href="#pricing" class="hover:text-lumina-sage transition-colors">Pricing</a>
+                    <a asp-page="/Account/Login" class="lumina-btn-ghost text-sm">Log in</a>
+                    <a asp-page="/Account/Register" class="lumina-btn-primary text-sm">Begin your practice</a>
+                </div>
+
+                <!-- Mobile: simple CTA -->
+                <div class="md:hidden">
+                    <a asp-page="/Account/Register" class="lumina-btn-primary text-sm px-5 py-2">Join</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main id="main-content" role="main" class="min-h-[calc(100vh-4rem)]">
+        @RenderBody()
+    </main>
+
+    <!-- Member Mobile Bottom Navigation (shown when authenticated in future) -->
+    <!-- Placeholder for now — will be conditional in later phases -->
+    
+    <footer class="border-t border-lumina-sage-light bg-white/60 mt-12">
+        <div class="max-w-7xl mx-auto px-6 py-10 text-sm text-lumina-charcoal/70">
+            <div class="flex flex-col md:flex-row justify-between gap-y-4">
+                <div>
+                    <span class="font-medium text-lumina-charcoal">Lumina</span> — Movement. Presence. Light.<br />
+                    <span class="text-xs">Rondebosch, Cape Town • In the same building as physiotherapy care</span>
+                </div>
+                <div class="flex gap-x-6 text-xs">
+                    <a href="#" class="hover:text-lumina-sage">Accessibility</a>
+                    <a href="#" class="hover:text-lumina-sage">Our Approach</a>
+                    <a asp-page="/Privacy" class="hover:text-lumina-sage">Privacy</a>
+                </div>
+            </div>
+            <div class="mt-8 text-[10px] opacity-60">© 2026 Lumina Wellness Studio. Crafted with care for every body.</div>
+        </div>
+    </footer>
+
+    <!-- HTMX + Alpine (CDN for rapid beautiful interactions) -->
+    <script src="https://unpkg.com/htmx.org@2.0.2/dist/htmx.min.js"></script>
+    <script src="https://unpkg.com/alpinejs@3.14.1/dist/cdn.min.js" defer></script>
+    
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

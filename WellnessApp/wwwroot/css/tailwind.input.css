@@ -1,0 +1,82 @@
+@import "tailwindcss";
+
+/* =========================================
+   LUMINA DESIGN SYSTEM — Movement. Presence. Light.
+   Rondebosch, Cape Town boutique wellness (Pilates + Yoga)
+   ========================================= */
+
+/* Brand Colors (calming, premium, accessible) */
+:root {
+  --lumina-sage: #8B9A7D;
+  --lumina-cream: #F7F4EF;
+  --lumina-charcoal: #2F2C27;
+  --lumina-terracotta: #B87D5C;
+  --lumina-gold: #C9A87C;
+  --lumina-sage-light: #E8EDE3;
+}
+
+/* Tailwind Theme Extensions */
+@theme {
+  --color-lumina-sage: #8B9A7D;
+  --color-lumina-cream: #F7F4EF;
+  --color-lumina-charcoal: #2F2C27;
+  --color-lumina-terracotta: #B87D5C;
+  --color-lumina-gold: #C9A87C;
+  --color-lumina-sage-light: #E8EDE3;
+}
+
+/* Beautiful, breathing typography */
+body {
+  font-feature-settings: "kern" "liga" "tnum";
+}
+
+/* Focus rings — visible and brand-aligned */
+*:focus-visible {
+  outline: 3px solid var(--lumina-sage);
+  outline-offset: 2px;
+}
+
+/* Reduced motion respect (critical for accessibility) */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Custom serene components */
+.lumina-card {
+  @apply bg-white/90 backdrop-blur-sm rounded-3xl shadow-sm border border-lumina-sage-light/60 transition-all duration-200;
+}
+
+.lumina-btn-primary {
+  @apply bg-lumina-terracotta hover:bg-lumina-terracotta/90 text-white font-medium px-6 py-3 rounded-2xl transition-all active:scale-[0.985] focus-visible:outline-lumina-terracotta;
+}
+
+.lumina-btn-ghost {
+  @apply text-lumina-charcoal hover:bg-lumina-sage-light px-5 py-2.5 rounded-2xl transition-all;
+}
+
+.lumina-nav {
+  @apply bg-lumina-cream/95 backdrop-blur-md border-b border-lumina-sage-light;
+}
+
+/* Class card accents */
+.class-card {
+  @apply lumina-card overflow-hidden hover:shadow-md hover:-translate-y-0.5;
+}
+
+.capacity-bar {
+  @apply h-1.5 bg-lumina-sage-light rounded-full overflow-hidden;
+}
+
+.capacity-fill {
+  @apply h-full bg-lumina-sage transition-all duration-500;
+}
+
+/* Gentle, premium feel for wellness */
+.section-title {
+  @apply font-semibold tracking-tight text-lumina-charcoal;
+}
