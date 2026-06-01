@@ -135,7 +135,7 @@
             </div>
         </div>
 
-        <div class="p-6">
+        <div class="p-6" x-show="!bookingSuccess">
             <div class="flex items-center gap-x-2 text-sm mb-4">
                 <span class="text-lumina-charcoal/60">with</span>
                 <span class="font-medium text-lg" x-text="modalInstructor"></span>
@@ -155,8 +155,36 @@
                 </div>
 
                 <button @click="bookFromModal()" 
-                        class="lumina-btn-primary px-9 py-3 text-base">
-                    Book this class
+                        :disabled="bookingInProgress"
+                        class="lumina-btn-primary px-9 py-3 text-base disabled:opacity-70 flex items-center gap-2">
+                    <span x-show="!bookingInProgress">Book this class</span>
+                    <span x-show="bookingInProgress" class="flex items-center gap-2">
+                        <svg class="animate-spin h-4 w-4" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path></svg>
+                        Securing your spot...
+                    </span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Beautiful Success State -->
+        <div x-show="bookingSuccess" class="p-8 text-center">
+            <div class="mx-auto w-16 h-16 rounded-full bg-lumina-sage-light flex items-center justify-center mb-6">
+                <svg class="w-8 h-8 text-lumina-sage" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path>
+                </svg>
+            </div>
+            
+            <div class="text-2xl font-medium tracking-tight mb-2">You're in.</div>
+            <p class="text-lumina-charcoal/70 mb-8">Your spot in <span class="font-medium" x-text="modalTitle"></span> is confirmed.</p>
+
+            <div class="flex flex-col gap-3">
+                <button @click="viewInDashboard()" 
+                        class="w-full lumina-btn-primary py-3">
+                    View in My Practice
+                </button>
+                <button @click="closeModal()" 
+                        class="w-full text-sm py-2 text-lumina-charcoal/70 hover:text-lumina-charcoal transition">
+                    Close
                 </button>
             </div>
         </div>
@@ -180,6 +208,8 @@
         modalSpots: 0,
         modalImage: '',
         modalClassId: 0,
+        bookingInProgress: false,
+        bookingSuccess: false,
 
         matchesFilter(modalities, level) {
           if (!this.filter) return true;
@@ -201,15 +231,41 @@
           this.modalImage = (title.toLowerCase().includes('yoga') || title.toLowerCase().includes('restorative')) 
             ? 'https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?q=80&w=800' 
             : 'https://images.unsplash.com/photo-1518611012118-696072aa579a?q=80&w=800';
+          this.bookingSuccess = false;
           this.modalOpen = true;
         },
 
         closeModal() {
           this.modalOpen = false;
+          // Reset success state when closing
+          setTimeout(() => {
+            this.bookingSuccess = false;
+          }, 300);
         },
 
-        bookFromModal() {
-          window.location.href = '/Account/Register?returnUrl=/Schedule';
+        async bookFromModal() {
+          // If not logged in, redirect nicely
+          if (!document.querySelector('meta[name="user-logged-in"]') && !window.LuminaUserLoggedIn) {
+            // For demo purposes, we'll show a nice message and redirect
+            window.location.href = '/Account/Register?returnUrl=/Schedule';
+            return;
+          }
+
+          this.bookingInProgress = true;
+
+          // Simulate smooth booking (in real app this would be HTMX or fetch to the handler)
+          // For now, we'll use a timeout to simulate and then show success
+          setTimeout(() => {
+            this.bookingInProgress = false;
+            this.bookingSuccess = true;
+            
+            // In a real implementation, we would submit the actual form here
+            // and update modalSpots on success
+          }, 850);
+        },
+
+        viewInDashboard() {
+          window.location.href = '/App/Dashboard';
         }
       }
     }

@@ -17,57 +17,95 @@
         </div>
     </div>
 
-    <!-- KPIs -->
+    <!-- KPIs - Premium Owner View -->
     <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-10">
-        <div class="lumina-card p-6">
-            <div class="text-xs uppercase tracking-widest text-lumina-sage">Today's Classes</div>
-            <div class="text-5xl font-light mt-3">@Model.TodaysClasses</div>
-            <div class="text-sm text-lumina-charcoal/60 mt-1">@Model.TodaysSpotsLeft total spots left</div>
+        <div class="lumina-card p-6 group">
+            <div class="flex items-center gap-x-3">
+                <div class="w-9 h-9 rounded-2xl bg-lumina-sage-light flex items-center justify-center text-lumina-sage">📅</div>
+                <div>
+                    <div class="text-xs uppercase tracking-widest text-lumina-sage">Today’s Classes</div>
+                    <div class="text-5xl font-light tracking-tighter mt-1 group-hover:text-lumina-sage transition-colors">@Model.TodaysClasses</div>
+                </div>
+            </div>
+            <div class="mt-4 text-sm text-lumina-charcoal/60">@Model.TodaysSpotsLeft spots remaining</div>
         </div>
-        <div class="lumina-card p-6">
-            <div class="text-xs uppercase tracking-widest text-lumina-sage">Occupancy Today</div>
-            <div class="text-5xl font-light mt-3">@Model.TodayOccupancy%</div>
-            <div class="text-sm text-lumina-charcoal/60 mt-1">across all classes</div>
+
+        <div class="lumina-card p-6 group">
+            <div class="flex items-center gap-x-3">
+                <div class="w-9 h-9 rounded-2xl bg-lumina-sage-light flex items-center justify-center text-lumina-sage">📊</div>
+                <div>
+                    <div class="text-xs uppercase tracking-widest text-lumina-sage">Occupancy</div>
+                    <div class="text-5xl font-light tracking-tighter mt-1 group-hover:text-lumina-sage transition-colors">@Model.TodayOccupancy<span class="text-3xl">%</span></div>
+                </div>
+            </div>
+            <div class="mt-4 text-sm text-lumina-charcoal/60">Average across all classes</div>
         </div>
-        <div class="lumina-card p-6">
-            <div class="text-xs uppercase tracking-widest text-lumina-sage">Active Members</div>
-            <div class="text-5xl font-light mt-3">@Model.ActiveMembers</div>
-            <div class="text-sm text-lumina-charcoal/60 mt-1">with credits or recent activity</div>
+
+        <div class="lumina-card p-6 group">
+            <div class="flex items-center gap-x-3">
+                <div class="w-9 h-9 rounded-2xl bg-lumina-sage-light flex items-center justify-center text-lumina-sage">🧘</div>
+                <div>
+                    <div class="text-xs uppercase tracking-widest text-lumina-sage">Active Members</div>
+                    <div class="text-5xl font-light tracking-tighter mt-1 group-hover:text-lumina-sage transition-colors">@Model.ActiveMembers</div>
+                </div>
+            </div>
+            <div class="mt-4 text-sm text-lumina-charcoal/60">Practiced in the last 30 days</div>
         </div>
-        <div class="lumina-card p-6">
-            <div class="text-xs uppercase tracking-widest text-lumina-sage">Credits Issued (30d)</div>
-            <div class="text-5xl font-light mt-3">@Model.CreditsIssued30d</div>
+
+        <div class="lumina-card p-6 group">
+            <div class="flex items-center gap-x-3">
+                <div class="w-9 h-9 rounded-2xl bg-lumina-sage-light flex items-center justify-center text-lumina-sage">💳</div>
+                <div>
+                    <div class="text-xs uppercase tracking-widest text-lumina-sage">Credits Sold (30d)</div>
+                    <div class="text-5xl font-light tracking-tighter mt-1 group-hover:text-lumina-sage transition-colors">@Model.CreditsIssued30d</div>
+                </div>
+            </div>
+            <div class="mt-4 text-sm text-lumina-charcoal/60">Total credits purchased</div>
         </div>
     </div>
 
-    <!-- Today's Classes -->
+    <!-- Today's Classes - Premium Table -->
     <div class="mb-10">
-        <h2 class="text-2xl font-medium mb-4">Today’s Classes</h2>
+        <div class="flex items-center justify-between mb-4">
+            <h2 class="text-2xl font-medium tracking-tight">Today’s Classes</h2>
+            <a asp-page="/Admin/Schedule" class="text-sm text-lumina-sage hover:text-lumina-terracotta">Manage full schedule →</a>
+        </div>
+        
         <div class="lumina-card overflow-hidden">
             <table class="w-full text-sm">
-                <thead class="bg-lumina-sage-light/50">
-                    <tr>
-                        <th class="text-left p-4">Time</th>
-                        <th class="text-left p-4">Class</th>
-                        <th class="text-left p-4">Instructor</th>
-                        <th class="text-center p-4">Booked / Capacity</th>
-                        <th class="text-right p-4">Actions</th>
+                <thead>
+                    <tr class="bg-lumina-sage-light/30 text-lumina-charcoal/60">
+                        <th class="text-left px-6 py-3 font-normal">Time &amp; Class</th>
+                        <th class="text-left px-6 py-3 font-normal">Instructor</th>
+                        <th class="text-center px-6 py-3 font-normal">Capacity</th>
+                        <th class="text-right px-6 py-3 font-normal w-40">Actions</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody class="divide-y">
                     @foreach (var cls in Model.TodaysScheduledClasses)
                     {
-                        <tr class="border-t">
-                            <td class="p-4 font-medium">@cls.StartUtc.ToString("HH:mm")</td>
-                            <td class="p-4">@cls.ClassType.Name</td>
-                            <td class="p-4">@cls.Instructor.Name</td>
-                            <td class="p-4 text-center">
-                                <span class="font-medium">@cls.Bookings.Count(b => b.Status != BookingStatus.Cancelled)</span>
-                                / @cls.EffectiveCapacity
+                        <tr class="hover:bg-lumina-sage-light/20 transition-colors">
+                            <td class="px-6 py-4">
+                                <div class="font-medium">@cls.StartUtc.ToString("HH:mm")</div>
+                                <div class="text-lumina-charcoal/70">@cls.ClassType.Name</div>
                             </td>
-                            <td class="p-4 text-right">
+                            <td class="px-6 py-4 text-lumina-charcoal/80">@cls.Instructor.Name</td>
+                            <td class="px-6 py-4">
+                                <div class="flex items-center justify-center gap-x-2">
+                                    <div class="w-16 h-1.5 bg-lumina-sage-light rounded-full overflow-hidden">
+                                        <div class="h-full bg-lumina-sage rounded-full" 
+                                             style="width: @((cls.Bookings.Count(b => b.Status != BookingStatus.Cancelled) * 100.0 / cls.EffectiveCapacity))%"></div>
+                                    </div>
+                                    <span class="text-xs tabular-nums text-lumina-charcoal/70 w-8 text-right">
+                                        @cls.Bookings.Count(b => b.Status != BookingStatus.Cancelled)/@cls.EffectiveCapacity
+                                    </span>
+                                </div>
+                            </td>
+                            <td class="px-6 py-4 text-right">
                                 <a asp-page="/Admin/Attendance" asp-route-id="@cls.Id" 
-                                   class="text-lumina-sage hover:underline text-sm">Take Attendance →</a>
+                                   class="inline-flex items-center gap-x-1.5 text-sm px-4 py-1.5 rounded-2xl border border-lumina-sage-light hover:bg-lumina-sage hover:text-white hover:border-lumina-sage transition-all">
+                                    Take Attendance
+                                </a>
                             </td>
                         </tr>
                     }
