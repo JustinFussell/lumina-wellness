@@ -121,15 +121,32 @@
         animation: scaleIn 0.2s cubic-bezier(0.23, 1, 0.32, 1);
       }
 
-      /* Refined Buttons */
+      /* Refined Buttons (plain CSS to keep Razor parser happy alongside Tailwind CDN) */
       .btn-lumina {
-        @apply inline-flex items-center justify-center rounded-3xl font-medium transition-all active:scale-[0.985];
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 1.5rem;
+        font-weight: 500;
+        transition: all 0.2s cubic-bezier(0.23, 1, 0.32, 1);
+      }
+      .btn-lumina:active {
+        transform: scale(0.985);
       }
       .btn-lumina-primary {
-        @apply bg-lumina-terracotta text-white hover:bg-lumina-terracotta/90 shadow-lg;
+        background-color: #B87D5C;
+        color: white;
+        box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+      }
+      .btn-lumina-primary:hover {
+        background-color: #A36B4F;
       }
       .btn-lumina-secondary {
-        @apply border border-lumina-charcoal/80 hover:bg-lumina-charcoal hover:text-white;
+        border: 1px solid rgba(47, 44, 39, 0.8);
+      }
+      .btn-lumina-secondary:hover {
+        background-color: #2F2C27;
+        color: white;
       }
 
       /* Image Treatment */
@@ -155,7 +172,7 @@
     <!-- PWA + Icons (prepared) -->
     <link rel="manifest" href="~/manifest.json" />
 </head>
-<body class="bg-lumina-cream text-lumina-charcoal antialiased">
+<body class="bg-lumina-cream text-lumina-charcoal antialiased" data-logged-in="@(User.Identity?.IsAuthenticated == true ? "true" : "false")">
     <!-- Skip to content for accessibility -->
     <a href="#main-content" 
        class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-white px-4 py-2 rounded-2xl shadow z-50">
@@ -199,8 +216,38 @@
         @RenderBody()
     </main>
 
-    <!-- Member Mobile Bottom Navigation (shown when authenticated in future) -->
-    <!-- Placeholder for now — will be conditional in later phases -->
+    <!-- Member Mobile Bottom Navigation - Premium Feel -->
+    @if (User.Identity?.IsAuthenticated == true)
+    {
+        <nav class="md:hidden fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur-xl border-t border-lumina-sage-light z-50 shadow-lg">
+            <div class="flex justify-around items-center py-2 px-1 text-[10px] tracking-widest">
+                <a asp-page="/App/Dashboard" class="flex flex-col items-center px-4 py-1 text-lumina-charcoal/70 hover:text-lumina-sage active:text-lumina-sage transition-colors">
+                    <span class="text-xl mb-0.5">🏠</span>
+                    <span class="font-medium">Home</span>
+                </a>
+                <a asp-page="/Schedule" class="flex flex-col items-center px-4 py-1 text-lumina-charcoal/70 hover:text-lumina-sage active:text-lumina-sage transition-colors">
+                    <span class="text-xl mb-0.5">📅</span>
+                    <span class="font-medium">Schedule</span>
+                </a>
+                <a asp-page="/App/Dashboard" class="flex flex-col items-center px-4 py-1 text-lumina-charcoal/70 hover:text-lumina-sage active:text-lumina-sage transition-colors">
+                    <span class="text-xl mb-0.5">📈</span>
+                    <span class="font-medium">Practice</span>
+                </a>
+                <a asp-page="/Account/Login" class="flex flex-col items-center px-4 py-1 text-lumina-charcoal/70 hover:text-lumina-sage active:text-lumina-sage transition-colors">
+                    <span class="text-xl mb-0.5">👤</span>
+                    <span class="font-medium">Me</span>
+                </a>
+            </div>
+        </nav>
+        
+        <!-- Floating Book Button for extra delight on mobile -->
+        <div class="md:hidden fixed bottom-20 right-5 z-50">
+            <a asp-page="/Schedule" 
+               class="flex items-center justify-center w-14 h-14 bg-lumina-terracotta text-white rounded-2xl shadow-2xl active:scale-95 transition-all">
+                <span class="text-2xl">＋</span>
+            </a>
+        </div>
+    }
     
     <footer class="border-t border-lumina-sage-light bg-white/60 mt-12">
         <div class="max-w-7xl mx-auto px-6 py-10 text-sm text-lumina-charcoal/70">

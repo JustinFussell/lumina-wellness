@@ -96,4 +96,65 @@ public class ScheduleModel : PageModel
 
         return RedirectToPage("/App/Dashboard", new { success = "Class booked successfully!" });
     }
+
+    // AJAX handler for seamless booking from the premium modal (maximum wow, no redirect friction)
+    public async Task<IActionResult> OnPostBookAjaxAsync(int scheduledClassId)
+    {
+        var userId = _userManager.GetUserId(User);
+        if (string.IsNullOrEmpty(userId))
+        {
+            return new JsonResult(new { success = false, message = "Please log in to book.", requiresAuth = true });
+        }
+
+        var scheduledClass = await _db.ScheduledClasses
+            .Include(s => s.Bookings)
+            .Include(s => s.ClassType)
+            .FirstOrDefaultAsync(s => s.Id == scheduledClassId);
+
+        if (scheduledClass == null || scheduledClass.IsCancelled)
+            return new JsonResult(new { success = false, message = "This class is no longer available." });
+
+        int currentBookings = scheduledClass.Bookings.Count(b => b.Status == BookingStatus.Reserved || b.Status == BookingStatus.Attended);
+        if (currentBookings >= scheduledClass.EffectiveCapacity)
+            return new JsonResult(new { success = false, message = "This class is now full. Would you like to join the waitlist?" });
+
+        bool alreadyBooked = await _db.Bookings.AnyAsync(b =>
+            b.UserId == userId &&
+            b.ScheduledClassId == scheduledClassId &&
+            (b.Status == BookingStatus.Reserved || b.Status == BookingStatus.Attended));
+
+        if (alreadyBooked)
+            return new JsonResult(new { success = false, message = "You're already booked for this class." });
+
+        var credit = await _db.UserCredits
+            .Where(c => c.UserId == userId && c.CreditsRemaining > 0 && (c.ExpiresAt == null || c.ExpiresAt > DateTime.UtcNow))
+            .OrderBy(c => c.ExpiresAt ?? DateTime.MaxValue)
+            .FirstOrDefaultAsync();
+
+        if (credit == null)
+            return new JsonResult(new { success = false, message = "No credits left. Visit Pricing to top up your practice." });
+
+        var booking = new Booking
+        {
+            UserId = userId,
+            ScheduledClassId = scheduledClassId,
+            Status = BookingStatus.Reserved,
+            CreditsUsed = 1,
+            BookedAtUtc = DateTime.UtcNow
+        };
+
+        credit.CreditsRemaining -= 1;
+        _db.Bookings.Add(booking);
+        await _db.SaveChangesAsync();
+
+        int newRemaining = scheduledClass.EffectiveCapacity - (currentBookings + 1);
+
+        return new JsonResult(new
+        {
+            success = true,
+            message = "You're in. Your spot is confirmed.",
+            spotsRemaining = newRemaining,
+            classId = scheduledClassId
+        });
+    }
 }

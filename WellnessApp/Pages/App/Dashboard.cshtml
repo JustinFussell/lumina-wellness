@@ -5,71 +5,101 @@
 }
 
 <div class="max-w-5xl mx-auto px-6 py-10">
-    <div class="flex items-center justify-between mb-8">
+    <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-y-3 mb-9">
         <div>
-            <div class="text-sm text-lumina-sage tracking-widest">YOUR PRACTICE</div>
-            <h1 class="section-title text-5xl tracking-tight mt-1">Good to see you, @User.Identity?.Name?.Split(' ').FirstOrDefault().</h1>
+            <div class="text-xs tracking-[3px] text-lumina-sage">YOUR SANCTUARY</div>
+            <h1 class="section-title text-5xl md:text-6xl tracking-tighter mt-1">Good to see you, @(User.Identity?.Name?.Split(' ').FirstOrDefault() ?? "friend").</h1>
         </div>
-        <a asp-page="/Schedule" class="hidden md:block btn-lumina btn-lumina-primary px-8">Book your next class</a>
+        <a asp-page="/Schedule" class="btn-lumina btn-lumina-primary px-9 py-3 text-base inline-flex items-center gap-2">
+            Book your next class <span class="text-lg">→</span>
+        </a>
     </div>
 
-    <!-- Streak + Visual Stats -->
+    <!-- Hero Stats: Streak + Credits + Month (maximum emotional resonance) -->
     <div class="grid md:grid-cols-12 gap-5 mb-8">
-        <div class="md:col-span-5 lumina-card p-8 flex flex-col justify-center">
-            <div class="flex items-baseline gap-x-3">
-                <div class="text-[92px] font-light tracking-tighter leading-none text-lumina-sage">12</div>
-                <div>
-                    <div class="text-2xl font-medium">day streak</div>
-                    <div class="text-sm text-lumina-charcoal/70">Keep it going</div>
-                </div>
-            </div>
-            <div class="mt-auto pt-8 text-sm text-lumina-charcoal/60">Your longest streak this year is 19 days. You're in a beautiful rhythm.</div>
-        </div>
-
-        <div class="md:col-span-7 grid grid-cols-2 gap-5">
-            <div class="lumina-card p-7">
-                <div class="text-xs uppercase tracking-widest text-lumina-sage mb-1">This month</div>
-                <div class="text-6xl font-light tracking-tighter">@Model.ThisMonthClasses</div>
-                <div class="text-lumina-charcoal/70">classes moved through</div>
-                <div class="mt-6 h-2 bg-lumina-sage-light rounded-full overflow-hidden">
-                    <div class="h-2 bg-lumina-sage w-3/4 rounded-full"></div>
-                </div>
-            </div>
-            <div class="lumina-card p-7">
-                <div class="text-xs uppercase tracking-widest text-lumina-sage mb-1">Credits</div>
-                <div class="text-6xl font-light tracking-tighter">@Model.CreditsRemaining</div>
-                <div class="text-lumina-charcoal/70">remaining</div>
-                <div class="mt-6">
-                    <a asp-page="/Pricing" class="text-sm text-lumina-sage hover:text-lumina-terracotta">Top up your practice →</a>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Next Class Hero -->
-    <div class="lumina-card p-8 mb-8 bg-gradient-to-br from-white to-lumina-sage-light/30">
-        <div class="flex items-center justify-between">
+        <!-- Streak Card - the heart -->
+        <div class="md:col-span-5 premium-card lumina-card p-9 flex flex-col justify-between min-h-[218px] bg-gradient-to-br from-white to-lumina-sage-light/20">
             <div>
-                <div class="text-xs uppercase tracking-widest text-lumina-sage">NEXT UP</div>
-                @if (Model.NextBooking != null)
+                <div class="uppercase tracking-[2.5px] text-xs text-lumina-sage mb-2">CURRENT STREAK</div>
+                <div class="flex items-baseline gap-x-3">
+                    <div class="text-[96px] font-light tracking-[-6.5px] leading-none text-lumina-sage">@Model.CurrentStreak</div>
+                    <div class="text-3xl font-light text-lumina-charcoal/70 -mb-3">days</div>
+                </div>
+            </div>
+            <div class="mt-auto text-sm text-lumina-charcoal/65 pr-2">
+                @if (Model.CurrentStreak > 5)
                 {
-                    <div class="text-4xl font-medium tracking-tight mt-2">@Model.NextBooking.ScheduledClass.ClassType.Name</div>
-                    <div class="mt-1 text-xl text-lumina-charcoal/80">@Model.NextBooking.ScheduledClass.StartUtc.ToString("f") with @Model.NextBooking.ScheduledClass.Instructor.Name</div>
+                    <span>You're in a beautiful rhythm. Your body thanks you.</span>
+                }
+                else if (Model.CurrentStreak > 0)
+                {
+                    <span>Small steps, steady light. Keep showing up for yourself.</span>
                 }
                 else
                 {
-                    <div class="text-4xl font-medium tracking-tight mt-2 text-lumina-charcoal/60">No class booked yet</div>
+                    <span>Every journey begins with one intentional step onto the mat.</span>
                 }
             </div>
-            <a asp-page="/Schedule" class="btn-lumina btn-lumina-primary px-10 py-4 text-lg hidden md:block">Change or add</a>
+        </div>
+
+        <div class="md:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-5">
+            <div class="premium-card lumina-card p-7 flex flex-col">
+                <div class="text-xs uppercase tracking-[2px] text-lumina-sage">THIS MONTH</div>
+                <div class="mt-auto">
+                    <div class="text-7xl font-light tracking-[-3.5px]">@Model.ThisMonthClasses</div>
+                    <div class="text-lg text-lumina-charcoal/70 -mt-1">classes moved through</div>
+                </div>
+                <div class="mt-5 h-1.5 bg-lumina-sage-light rounded-full overflow-hidden">
+                    <div class="h-1.5 bg-lumina-sage rounded-full transition-all" style="width: @(Math.Min(100, Math.Max(8, Model.ThisMonthClasses * 12)))%"></div>
+                </div>
+            </div>
+
+            <div class="premium-card lumina-card p-7 flex flex-col">
+                <div class="text-xs uppercase tracking-[2px] text-lumina-sage">CREDITS</div>
+                <div class="mt-auto">
+                    <div class="text-7xl font-light tracking-[-3.5px]">@Model.CreditsRemaining</div>
+                    <div class="text-lg text-lumina-charcoal/70 -mt-1">remaining in your practice</div>
+                </div>
+                <a asp-page="/Pricing" class="mt-5 text-sm inline-flex items-center text-lumina-sage hover:text-lumina-terracotta font-medium group">
+                    Top up your light <span class="group-hover:translate-x-0.5 transition ml-1">→</span>
+                </a>
+            </div>
         </div>
     </div>
 
-    <!-- Upcoming + Visual History -->
-    <div class="grid md:grid-cols-5 gap-5">
-        <div class="md:col-span-3">
-            <div class="flex items-center justify-between mb-4">
-                <h2 class="text-2xl font-medium tracking-tight">Your upcoming practice</h2>
+    <!-- Next Up - Elegant Hero -->
+    <div class="premium-card lumina-card p-8 md:p-9 mb-8 bg-[radial-gradient(at_30%_20%,#F7F4EF_0%,transparent_70%)]">
+        <div class="uppercase tracking-[3px] text-xs text-lumina-sage mb-2">NEXT UP IN YOUR PRACTICE</div>
+        
+        @if (Model.NextBooking != null)
+        {
+            <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-y-6">
+                <div>
+                    <div class="text-4xl md:text-[42px] font-light tracking-[-1.8px]">@Model.NextBooking.ScheduledClass.ClassType.Name</div>
+                    <div class="mt-2 text-xl text-lumina-charcoal/75">@Model.NextBooking.ScheduledClass.StartUtc.ToString("dddd, dd MMM • HH:mm") with @Model.NextBooking.ScheduledClass.Instructor.Name</div>
+                </div>
+                <div class="flex gap-3">
+                    <a asp-page="/Schedule" class="btn-lumina btn-lumina-secondary px-8 py-3 text-sm">Manage booking</a>
+                    <a asp-page="/Schedule" class="btn-lumina btn-lumina-primary px-9 py-3 text-sm">Add another</a>
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="py-3">
+                <div class="text-3xl font-light tracking-tight text-lumina-charcoal/60">Your calendar is open and waiting.</div>
+                <a asp-page="/Schedule" class="inline-block mt-4 text-lumina-sage font-medium hover:text-lumina-terracotta">Find the class that feels right →</a>
+            </div>
+        }
+    </div>
+
+    <!-- Two Column: Upcoming + Rich History Timeline -->
+    <div class="grid lg:grid-cols-5 gap-6">
+        <!-- Upcoming -->
+        <div class="lg:col-span-3">
+            <div class="flex items-center justify-between mb-4 px-1">
+                <div class="font-medium text-xl tracking-tight">Your upcoming practice</div>
+                <a asp-page="/Schedule" class="text-xs tracking-widest text-lumina-sage hover:text-lumina-terracotta">VIEW FULL SCHEDULE →</a>
             </div>
 
             @if (Model.UpcomingBookings.Any())
@@ -77,39 +107,77 @@
                 <div class="space-y-3">
                     @foreach (var b in Model.UpcomingBookings)
                     {
-                        <div class="premium-card lumina-card px-6 py-5 flex items-center justify-between group">
-                            <div class="flex items-center gap-x-4">
-                                <div class="w-14 h-14 rounded-2xl overflow-hidden flex-shrink-0">
-                                    <img src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?q=80&w=200" class="w-full h-full object-cover" alt="">
-                                </div>
-                                <div>
-                                    <div class="font-medium">@b.ScheduledClass.ClassType.Name</div>
-                                    <div class="text-sm text-lumina-charcoal/70">@b.ScheduledClass.StartUtc.ToString("f") with @b.ScheduledClass.Instructor.Name</div>
-                                </div>
+                        <div class="premium-card group lumina-card px-6 py-5 flex items-center gap-5 hover:border-lumina-sage/40 transition-all">
+                            <div class="w-16 h-16 rounded-2xl overflow-hidden ring-1 ring-lumina-sage-light flex-shrink-0">
+                                <img src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?q=80&w=300" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" alt="">
                             </div>
-                            <a asp-page="/Schedule" class="text-sm text-lumina-sage group-hover:text-lumina-terracotta transition">Manage →</a>
+                            <div class="flex-1 min-w-0">
+                                <div class="font-medium tracking-tight">@b.ScheduledClass.ClassType.Name</div>
+                                <div class="text-sm text-lumina-charcoal/70 mt-0.5">@b.ScheduledClass.StartUtc.ToString("ddd dd MMM • HH:mm") • @b.ScheduledClass.Instructor.Name</div>
+                            </div>
+                            <div>
+                                <a asp-page="/Schedule" class="text-xs px-4 py-2 rounded-2xl border border-lumina-sage-light text-lumina-sage group-hover:bg-lumina-sage group-hover:text-white transition-all">DETAILS</a>
+                            </div>
                         </div>
                     }
                 </div>
             }
             else
             {
-                <div class="premium-card lumina-card p-8 text-center">
-                    <div class="text-6xl mb-4">🌿</div>
-                    <div class="text-xl font-medium">Your calendar is beautifully open.</div>
-                    <a asp-page="/Schedule" class="mt-4 inline-block text-lumina-sage font-medium hover:text-lumina-terracotta">Find something that calls to you →</a>
+                <div class="lumina-card p-9 text-center border border-dashed border-lumina-sage-light">
+                    <div class="text-6xl mb-3 opacity-70">🌱</div>
+                    <div class="font-medium text-xl">Nothing on the calendar yet.</div>
+                    <p class="text-lumina-charcoal/60 mt-1">The mat is ready whenever you are.</p>
+                    <a asp-page="/Schedule" class="mt-6 inline-block btn-lumina btn-lumina-primary px-8">Explore classes</a>
                 </div>
             }
         </div>
 
-        <div class="md:col-span-2 lumina-card p-7">
-            <div class="text-xs uppercase tracking-widest text-lumina-sage mb-3">YOUR PRACTICE THIS MONTH</div>
-            <div class="space-y-4 text-sm">
-                <div class="flex justify-between"><span>Reformer Pilates</span><span class="font-medium">7</span></div>
-                <div class="flex justify-between"><span>Restorative Yoga</span><span class="font-medium">4</span></div>
-                <div class="flex justify-between"><span>Gentle Flow</span><span class="font-medium">1</span></div>
+        <!-- Practice History - Beautiful Timeline -->
+        <div class="lg:col-span-2">
+            <div class="px-1 flex items-center justify-between mb-4">
+                <div class="font-medium text-xl tracking-tight">Recent light</div>
             </div>
-            <div class="mt-6 pt-6 border-t text-xs text-lumina-charcoal/60">Your body is asking for more restorative work lately. Listen to it.</div>
+
+            @if (Model.RecentHistory.Any())
+            {
+                <div class="space-y-[13px]">
+                    @foreach (var b in Model.RecentHistory.Take(5))
+                    {
+                        <div class="flex gap-4 items-start group">
+                            <div class="w-11 h-11 rounded-2xl overflow-hidden flex-shrink-0 ring-1 ring-lumina-sage-light/70 mt-0.5">
+                                <img src="https://images.unsplash.com/photo-1506126613408-eca07ce68773?q=80&w=200" class="w-full h-full object-cover" alt="">
+                            </div>
+                            <div class="text-sm leading-snug">
+                                <div class="font-medium">@b.ScheduledClass.ClassType.Name</div>
+                                <div class="text-lumina-charcoal/60">@b.ScheduledClass.StartUtc.ToString("dd MMM yyyy") with @b.ScheduledClass.Instructor.Name</div>
+                            </div>
+                        </div>
+                    }
+                </div>
+                <div class="text-xs text-lumina-sage mt-4 px-1 tracking-widest">YOUR BODY REMEMBERS EVERY SESSION.</div>
+            }
+            else
+            {
+                <div class="lumina-card p-7 text-sm text-lumina-charcoal/70 border border-lumina-sage-light/60">
+                    Your first few classes will appear here as a gentle record of your journey inward.
+                </div>
+            }
+        </div>
+    </div>
+
+    <!-- Gentle Intentions / Wisdom Section (emotional depth) -->
+    <div class="mt-9 lumina-card p-8 bg-white border border-lumina-sage-light/50">
+        <div class="max-w-xl">
+            <div class="text-xs tracking-[3px] text-lumina-sage">BODY WISDOM</div>
+            <div class="text-2xl font-light tracking-tight mt-1">What are you practicing for this week?</div>
+            <p class="mt-2 text-lumina-charcoal/70 text-[15px]">A small note to yourself can change how you arrive on the mat.</p>
+            
+            <form class="mt-5 flex gap-3" method="post" asp-page-handler="SaveIntention">
+                <input type="text" name="intention" placeholder="I am moving to feel more grounded..." 
+                       class="flex-1 px-5 py-3 rounded-3xl border border-lumina-sage-light bg-lumina-cream/50 text-sm placeholder:text-lumina-charcoal/40 focus:outline-none focus:border-lumina-sage">
+                <button type="submit" class="btn-lumina btn-lumina-primary px-7 text-sm">Hold this</button>
+            </form>
         </div>
     </div>
 </div>

@@ -21,55 +21,67 @@
         </div>
     </div>
 
-    <!-- Beautiful Filters -->
-    <div class="flex flex-wrap items-center gap-2 mb-8">
-        <div class="text-sm text-lumina-charcoal/60 mr-2">Filter by:</div>
-        <button @click="filter = ''" 
-                :class="{ 'bg-lumina-sage text-white': filter === '', 'bg-lumina-sage-light hover:bg-lumina-sage-light/80': filter !== '' }"
-                class="px-5 py-1.5 text-sm rounded-2xl transition-all">All</button>
-        
-        <button @click="filter = 'Pilates'" 
-                :class="{ 'bg-lumina-sage text-white': filter === 'Pilates' }"
-                class="px-5 py-1.5 text-sm rounded-2xl bg-lumina-sage-light hover:bg-lumina-sage-light/80 transition-all">Pilates</button>
-        
-        <button @click="filter = 'Yoga'" 
-                :class="{ 'bg-lumina-sage text-white': filter === 'Yoga' }"
-                class="px-5 py-1.5 text-sm rounded-2xl bg-lumina-sage-light hover:bg-lumina-sage-light/80 transition-all">Yoga</button>
-        
-        <button @click="filter = 'Beginner'" 
-                :class="{ 'bg-lumina-sage text-white': filter === 'Beginner' }"
-                class="px-5 py-1.5 text-sm rounded-2xl bg-lumina-sage-light hover:bg-lumina-sage-light/80 transition-all">Beginner Friendly</button>
+<!-- Beautiful Filters + Live Search (maximum interactivity) -->
+    <div class="mb-8">
+        <div class="flex flex-col md:flex-row gap-3">
+            <div class="flex-1">
+                <input type="text" 
+                       id="schedule-search"
+                       oninput="filterScheduleCards()"
+                       placeholder="Search classes, teachers, or modality..."
+                       class="w-full px-5 py-3.5 rounded-3xl border border-lumina-sage-light bg-white text-sm placeholder:text-lumina-charcoal/40 focus:border-lumina-sage focus:ring-1 focus:ring-lumina-sage/30 transition-all">
+            </div>
+            <div class="flex flex-wrap gap-2" id="schedule-filters">
+                <button onclick="setScheduleFilter(this, '')" 
+                        class="active-filter px-6 py-2.5 text-sm rounded-3xl transition-all bg-lumina-sage text-white">All</button>
+                
+                <button onclick="setScheduleFilter(this, 'Pilates')" 
+                        class="px-6 py-2.5 text-sm rounded-3xl bg-lumina-sage-light hover:bg-lumina-sage-light/80 text-lumina-charcoal transition-all">Pilates</button>
+                
+                <button onclick="setScheduleFilter(this, 'Yoga')" 
+                        class="px-6 py-2.5 text-sm rounded-3xl bg-lumina-sage-light hover:bg-lumina-sage-light/80 text-lumina-charcoal transition-all">Yoga</button>
+                
+                <button onclick="setScheduleFilter(this, 'Beginner')" 
+                        class="px-6 py-2.5 text-sm rounded-3xl bg-lumina-sage-light hover:bg-lumina-sage-light/80 text-lumina-charcoal transition-all">Beginner Friendly</button>
+            </div>
+        </div>
     </div>
 
-    <!-- Stunning Schedule Grid -->
-    <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+    <!-- Stunning Live Schedule Grid -->
+    <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3" id="schedule-grid">
         @foreach (var cls in Model.UpcomingClasses)
         {
             var imageUrl = cls.ClassType.Modalities.Contains("Yoga") 
-                ? "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?q=80&w=800" 
-                : "https://images.unsplash.com/photo-1518611012118-696072aa579a?q=80&w=800";
+                ? "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?q=80&w=900" 
+                : "https://images.unsplash.com/photo-1518611012118-696072aa579a?q=80&w=900";
+            var remaining = cls.EffectiveCapacity - cls.Bookings.Count(b => b.Status != BookingStatus.Cancelled);
+            var modalitiesAttr = cls.ClassType.Modalities;
+            var levelAttr = cls.ClassType.Level;
+            var nameAttr = cls.ClassType.Name.Replace("'", "\\'");
+            var instructorAttr = cls.Instructor.Name.Replace("'", "\\'");
 
-            <div x-show="matchesFilter('@cls.ClassType.Modalities', '@cls.ClassType.Level')"
-                 class="premium-card group bg-white rounded-3xl overflow-hidden elegant-shadow border border-lumina-sage-light/40 cursor-pointer"
-                 @click="openModal(@cls.Id, '@cls.ClassType.Name', '@cls.Instructor.Name', '@cls.StartUtc.ToString("f")', '@cls.ClassType.Description', '@cls.ClassType.AccessFeatures', @cls.EffectiveCapacity, @cls.Bookings.Count(b => b.Status != BookingStatus.Cancelled))">
+            <div class="schedule-card premium-card group bg-white rounded-3xl overflow-hidden elegant-shadow border border-lumina-sage-light/40 cursor-pointer relative"
+                 data-modalities="@modalitiesAttr"
+                 data-level="@levelAttr"
+                 data-name="@cls.ClassType.Name"
+                 data-instructor="@cls.Instructor.Name"
+                 data-class-id="@cls.Id"
+                 onclick='openScheduleModal(@cls.Id, "@nameAttr", "@instructorAttr", "@cls.StartUtc.ToString("f")", "@cls.ClassType.Description?.Replace("\"", "\\\"")", "@cls.ClassType.AccessFeatures?.Replace("\"", "\\\"")", @cls.EffectiveCapacity, @remaining)'>
                 
                 <!-- Image Header -->
                 <div class="relative h-52 overflow-hidden">
                     <img src="@imageUrl" 
-                         class="class-image w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                         class="class-image w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.075]"
                          alt="@cls.ClassType.Name in serene studio">
-                    <div class="absolute inset-0 bg-gradient-to-b from-black/10 via-black/20 to-black/70"></div>
+                    <div class="absolute inset-0 bg-gradient-to-b from-black/10 via-black/25 to-black/75"></div>
                     
-                    <!-- Top badges -->
                     <div class="absolute top-4 left-4 flex gap-2">
-                        <span class="px-3 py-1 text-xs font-medium bg-white/90 text-lumina-charcoal rounded-full">@cls.ClassType.Level</span>
+                        <span class="px-3.5 py-1 text-xs font-medium bg-white/95 text-lumina-charcoal rounded-full shadow-sm">@cls.ClassType.Level</span>
                     </div>
                     
-                    <div class="absolute bottom-4 left-4 right-4">
-                        <div class="text-white">
-                            <div class="text-sm opacity-80">@cls.StartUtc.ToString("ddd") • @cls.StartUtc.ToString("HH:mm")</div>
-                            <h3 class="text-2xl font-medium tracking-tight leading-none mt-1">@cls.ClassType.Name</h3>
-                        </div>
+                    <div class="absolute bottom-4 left-4 right-4 text-white">
+                        <div class="text-xs tracking-[1.5px] opacity-80">@cls.StartUtc.ToString("ddd") • @cls.StartUtc.ToString("HH:mm")</div>
+                        <h3 class="text-[23px] font-medium tracking-[-0.6px] leading-none mt-1.5 pr-2">@cls.ClassType.Name</h3>
                     </div>
                 </div>
 
@@ -80,19 +92,18 @@
                             <span class="font-medium">@cls.Instructor.Name</span>
                         </div>
                         
-                        <!-- Capacity -->
                         <div class="flex items-center gap-x-2">
-                            <div class="text-xs text-lumina-charcoal/60">Spots</div>
-                            <div class="font-medium text-sm">@(cls.EffectiveCapacity - cls.Bookings.Count(b => b.Status != BookingStatus.Cancelled))</div>
+                            <div class="text-xs text-lumina-charcoal/50">Spots</div>
+                            <div class="font-semibold text-sm spots-count" data-remaining="@remaining">@remaining</div>
                         </div>
                     </div>
 
                     @if (!string.IsNullOrEmpty(cls.ClassType.AccessFeatures))
                     {
                         <div class="mt-4 flex flex-wrap gap-1.5">
-                            @foreach (var feature in cls.ClassType.AccessFeatures.Split('•', StringSplitOptions.RemoveEmptyEntries).Take(2))
+                            @foreach (var feature in cls.ClassType.AccessFeatures.Split('•', StringSplitOptions.RemoveEmptyEntries).Take(3))
                             {
-                                <span class="text-[10px] px-2.5 py-0.5 rounded-full bg-lumina-sage-light text-lumina-charcoal/90">@feature.Trim()</span>
+                                <span class="text-[10px] px-2.5 py-px rounded-full bg-lumina-sage-light text-lumina-charcoal/90">@feature.Trim()</span>
                             }
                         </div>
                     }
@@ -106,112 +117,138 @@
     </div>
 </div>
 
-<!-- Beautiful Class Detail Modal -->
+<!-- Stunning Premium Booking Modal - Maximum Wow, Fully Real -->
 <div x-show="modalOpen" 
-     x-transition:enter="transition ease-out duration-200"
+     x-transition:enter="transition ease-out duration-300"
      x-transition:enter-start="opacity-0"
      x-transition:enter-end="opacity-100"
-     class="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm"
-     @click="closeModal()">
+     class="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/70 backdrop-blur-md"
+     x-on:click="closeModal()"
+     role="dialog" aria-modal="true">
     
-    <div @click.stop 
-         x-transition:enter="transition ease-out duration-200"
-         x-transition:enter-start="opacity-0 translate-y-4 scale-95"
+    <div x-on:click.stop 
+         x-transition:enter="transition ease-out duration-300"
+         x-transition:enter-start="opacity-0 translate-y-8 scale-[0.985]"
          x-transition:enter-end="opacity-100 translate-y-0 scale-100"
-         class="smooth-modal w-full max-w-lg bg-white rounded-3xl overflow-hidden elegant-shadow">
+         class="smooth-modal w-full max-w-lg bg-white rounded-3xl overflow-hidden elegant-shadow border border-lumina-sage-light/30">
         
+        <!-- Hero Image Header -->
         <div class="relative h-64">
             <img :src="modalImage" class="w-full h-full object-cover" alt="">
-            <div class="absolute inset-0 bg-gradient-to-b from-black/30 to-black/70"></div>
+            <div class="absolute inset-0 bg-gradient-to-b from-black/20 via-black/40 to-black/80"></div>
             
-            <button @click="closeModal()" 
-                    class="absolute top-5 right-5 w-9 h-9 flex items-center justify-center text-white bg-black/40 hover:bg-black/60 rounded-full transition">
+            <button x-on:click="closeModal()" 
+                    class="absolute top-5 right-5 w-10 h-10 flex items-center justify-center text-white bg-black/50 hover:bg-black/70 rounded-full transition-all active:scale-95"
+                    aria-label="Close booking modal">
                 ✕
             </button>
             
-            <div class="absolute bottom-5 left-6 text-white">
-                <div class="text-sm opacity-80" x-text="modalTime"></div>
-                <div class="text-3xl font-medium tracking-tight" x-text="modalTitle"></div>
+            <div class="absolute bottom-6 left-6 right-6 text-white">
+                <div class="flex items-center gap-2 text-xs tracking-[2px] opacity-75 mb-1">
+                    <span x-text="modalTime"></span>
+                </div>
+                <div class="text-4xl font-light tracking-[-1.5px] leading-none" x-text="modalTitle"></div>
             </div>
         </div>
 
-        <div class="p-6" x-show="!bookingSuccess">
-            <div class="flex items-center gap-x-2 text-sm mb-4">
-                <span class="text-lumina-charcoal/60">with</span>
-                <span class="font-medium text-lg" x-text="modalInstructor"></span>
+        <!-- Booking Content -->
+        <div x-show="!bookingSuccess && !bookingError" class="p-7">
+            <div class="flex items-center gap-x-3 mb-5">
+                <div class="text-lumina-charcoal/60 text-sm">with</div>
+                <div class="font-medium text-xl tracking-tight" x-text="modalInstructor"></div>
             </div>
 
-            <p class="text-lumina-charcoal/80 leading-relaxed" x-text="modalDescription"></p>
+            <p class="text-[15px] leading-relaxed text-lumina-charcoal/80" x-text="modalDescription"></p>
 
-            <div class="my-6">
-                <div class="text-xs uppercase tracking-widest text-lumina-sage mb-2">Accessibility &amp; Modifications</div>
-                <div class="text-sm text-lumina-charcoal/80 whitespace-pre-line" x-text="modalAccess"></div>
+            <div class="mt-6 p-4 bg-lumina-sage-light/40 rounded-2xl text-sm">
+                <div class="uppercase tracking-[2px] text-lumina-sage text-xs mb-1.5">Accessibility &amp; Modifications</div>
+                <div class="text-lumina-charcoal/80 leading-snug whitespace-pre-line" x-text="modalAccess || 'Modifications lovingly offered for every body.'"></div>
             </div>
 
-            <div class="flex items-center justify-between border-t pt-5">
+            <div class="flex items-center justify-between mt-7 pt-6 border-t">
                 <div>
-                    <div class="text-xs text-lumina-charcoal/60">Spots remaining</div>
-                    <div class="font-semibold text-xl" x-text="modalSpots + ' / ' + modalCapacity"></div>
+                    <div class="text-xs tracking-widest text-lumina-charcoal/50">SPOTS LEFT</div>
+                    <div class="text-3xl font-light tracking-tighter" x-text="modalSpots"></div>
+                    <div class="text-xs text-lumina-charcoal/50 -mt-1">of <span x-text="modalCapacity"></span></div>
                 </div>
 
-                <button @click="bookFromModal()" 
-                        :disabled="bookingInProgress"
-                        class="lumina-btn-primary px-9 py-3 text-base disabled:opacity-70 flex items-center gap-2">
-                    <span x-show="!bookingInProgress">Book this class</span>
-                    <span x-show="bookingInProgress" class="flex items-center gap-2">
-                        <svg class="animate-spin h-4 w-4" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path></svg>
-                        Securing your spot...
+                <button x-on:click="bookFromModal()" 
+                        :disabled="bookingInProgress || modalSpots <= 0"
+                        class="lumina-btn-primary px-10 py-3.5 text-base font-medium disabled:opacity-60 flex items-center gap-3 min-w-[188px] justify-center rounded-3xl active:scale-[0.985] transition-all">
+                    <span x-show="!bookingInProgress">Reserve my spot</span>
+                    <span x-show="bookingInProgress" class="flex items-center gap-2.5">
+                        <svg class="animate-spin h-4 w-4" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-80" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path></svg>
+                        <span>Securing your place...</span>
                     </span>
                 </button>
             </div>
+            
+            <div class="text-center mt-4 text-xs text-lumina-charcoal/50">1 credit will be used • Cancel up to 4 hours before</div>
         </div>
 
-        <!-- Beautiful Success State -->
-        <div x-show="bookingSuccess" class="p-8 text-center relative overflow-hidden">
-            <!-- Simple CSS Confetti -->
-            <div class="absolute inset-0 pointer-events-none">
-                <div class="absolute text-2xl animate-bounce" style="left:10%; top:20%; animation-delay:0.1s">🌿</div>
-                <div class="absolute text-2xl animate-bounce" style="left:25%; top:35%; animation-delay:0.4s">✨</div>
-                <div class="absolute text-2xl animate-bounce" style="left:70%; top:15%; animation-delay:0.7s">🌿</div>
-                <div class="absolute text-2xl animate-bounce" style="left:80%; top:40%; animation-delay:0.2s">✨</div>
+        <!-- Error State (beautiful) -->
+        <div x-show="bookingError" class="p-7 text-center">
+            <div class="mx-auto w-14 h-14 rounded-full bg-red-100 flex items-center justify-center mb-4">
+                <span class="text-3xl">🌿</span>
             </div>
-
-            <div class="mx-auto w-16 h-16 rounded-full bg-lumina-sage-light flex items-center justify-center mb-6 relative z-10">
-                <svg class="w-8 h-8 text-lumina-sage" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path>
-                </svg>
-            </div>
+            <div class="text-xl font-medium tracking-tight mb-2 text-lumina-charcoal">We couldn't secure that spot</div>
+            <p class="text-lumina-charcoal/70 mb-6" x-text="bookingErrorMessage"></p>
             
-            <div class="text-2xl font-medium tracking-tight mb-2 relative z-10">You're in.</div>
-            <p class="text-lumina-charcoal/70 mb-8 relative z-10">Your spot in <span class="font-medium" x-text="modalTitle"></span> is confirmed.</p>
+            <div class="flex flex-col gap-3">
+                <button x-on:click="bookingError = false" class="w-full py-3 border border-lumina-sage-light rounded-3xl text-sm hover:bg-lumina-sage-light transition">Try another time</button>
+                <a href="/Pricing" class="text-sm text-lumina-sage hover:text-lumina-terracotta">Top up credits →</a>
+            </div>
+        </div>
 
-            <div class="flex flex-col gap-3 relative z-10">
-                <button @click="viewInDashboard()" 
-                        class="w-full lumina-btn-primary py-3">
-                    View in My Practice
-                </button>
+        <!-- Exquisite Success State -->
+        <div x-show="bookingSuccess" class="p-8 text-center relative bg-gradient-to-b from-white to-lumina-sage-light/10 overflow-hidden">
+            <!-- Delicate floating elements -->
+            <div class="absolute inset-0 pointer-events-none">
+                <div class="absolute text-3xl opacity-70" style="left:12%; top:18%; animation: float 3.2s ease-in-out infinite;">🌿</div>
+                <div class="absolute text-2xl opacity-60" style="left:78%; top:28%; animation: float 4.1s ease-in-out infinite 0.6s;">✧</div>
+                <div class="absolute text-3xl opacity-50" style="left:22%; top:72%; animation: float 3.8s ease-in-out infinite 1.1s;">✧</div>
+            </div>
+
+            <div class="relative z-10">
+                <div class="mx-auto w-20 h-20 rounded-full bg-white flex items-center justify-center mb-6 shadow-inner border border-lumina-sage/20">
+                    <svg class="w-9 h-9 text-lumina-sage" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.25">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+                    </svg>
+                </div>
                 
-                <button @click="addToCalendar()" 
-                        class="w-full text-sm py-2 border border-lumina-sage-light rounded-2xl hover:bg-lumina-sage-light transition flex items-center justify-center gap-2">
-                    <span>Add to Calendar</span>
-                </button>
-                
-                <button @click="closeModal()" 
-                        class="w-full text-sm py-2 text-lumina-charcoal/70 hover:text-lumina-charcoal transition">
-                    Close
-                </button>
+                <div class="text-[28px] font-light tracking-[-1px] mb-2">You're in the light.</div>
+                <p class="text-lumina-charcoal/70 max-w-[260px] mx-auto">Your place in <span class="font-medium text-lumina-charcoal" x-text="modalTitle"></span> is reserved.</p>
+
+                <div class="my-8 h-px bg-gradient-to-r from-transparent via-lumina-sage/30 to-transparent"></div>
+
+                <div class="flex flex-col gap-3">
+                    <button x-on:click="viewInDashboard()" 
+                            class="w-full lumina-btn-primary py-3.5 text-base font-medium tracking-tight rounded-3xl">
+                        View in My Practice →
+                    </button>
+                    
+                    <div class="grid grid-cols-2 gap-3">
+                        <button x-on:click="addToCalendar()" 
+                                class="py-2.5 text-sm border border-lumina-sage-light hover:bg-lumina-sage-light/70 active:bg-lumina-sage-light transition rounded-3xl flex items-center justify-center gap-2">
+                            <span>Google Calendar</span>
+                        </button>
+                        <button x-on:click="closeModalAndRefresh()" 
+                                class="py-2.5 text-sm border border-lumina-sage-light hover:bg-lumina-sage-light/70 active:bg-lumina-sage-light transition rounded-3xl">
+                            Done for now
+                        </button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </div>
 
 @section Scripts {
-    <script src="https://unpkg.com/alpinejs@3.14.1/dist/cdn.min.js" defer></script>
-    
     <script>
     function schedulePage() {
       return {
         filter: '',
+        search: '',
         modalOpen: false,
         modalTitle: '',
         modalInstructor: '',
@@ -224,8 +261,17 @@
         modalClassId: 0,
         bookingInProgress: false,
         bookingSuccess: false,
+        bookingError: false,
+        bookingErrorMessage: '',
 
-        matchesFilter(modalities, level) {
+        matchesFilter(modalities, level, title, instructor) {
+          const searchTerm = (this.search || '').toLowerCase().trim();
+          const matchesSearch = !searchTerm || 
+            title.toLowerCase().includes(searchTerm) || 
+            instructor.toLowerCase().includes(searchTerm) ||
+            modalities.toLowerCase().includes(searchTerm);
+
+          if (!matchesSearch) return false;
           if (!this.filter) return true;
           if (this.filter === 'Pilates' && modalities.includes('Pilates')) return true;
           if (this.filter === 'Yoga' && modalities.includes('Yoga')) return true;
@@ -238,44 +284,104 @@
           this.modalTitle = title;
           this.modalInstructor = instructor;
           this.modalTime = time;
-          this.modalDescription = description;
-          this.modalAccess = access || 'Modifications available for most bodies.';
+          this.modalDescription = description || 'A carefully held space for presence and movement.';
+          this.modalAccess = access || 'Modifications lovingly offered for every body and every ability.';
           this.modalCapacity = capacity;
-          this.modalSpots = capacity - booked;
-          this.modalImage = (title.toLowerCase().includes('yoga') || title.toLowerCase().includes('restorative')) 
-            ? 'https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?q=80&w=800' 
-            : 'https://images.unsplash.com/photo-1518611012118-696072aa579a?q=80&w=800';
+          this.modalSpots = Math.max(0, capacity - booked);
+          this.modalImage = (title.toLowerCase().includes('yoga') || title.toLowerCase().includes('restorative') || title.toLowerCase().includes('gentle')) 
+            ? 'https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?q=80&w=1200' 
+            : 'https://images.unsplash.com/photo-1518611012118-696072aa579a?q=80&w=1200';
           this.bookingSuccess = false;
+          this.bookingError = false;
+          this.bookingErrorMessage = '';
           this.modalOpen = true;
+          
+          // Subtle haptic on supported devices
+          if (navigator.vibrate) navigator.vibrate(8);
         },
 
         closeModal() {
           this.modalOpen = false;
-          // Reset success state when closing
           setTimeout(() => {
             this.bookingSuccess = false;
-          }, 300);
+            this.bookingError = false;
+          }, 280);
+        },
+
+        closeModalAndRefresh() {
+          this.closeModal();
+          // Soft refresh to show latest capacity from server (beautiful enough for now)
+          setTimeout(() => window.location.reload(), 420);
         },
 
         async bookFromModal() {
-          // If not logged in, redirect nicely
-          if (!document.querySelector('meta[name="user-logged-in"]') && !window.LuminaUserLoggedIn) {
-            // For demo purposes, we'll show a nice message and redirect
+          const isLoggedIn = document.body.dataset.loggedIn === 'true' || 
+                             !!document.querySelector('a[href*="/App/Dashboard"]') ||
+                             window.LuminaLoggedIn === true;
+
+          if (!isLoggedIn) {
             window.location.href = '/Account/Register?returnUrl=/Schedule';
             return;
           }
 
           this.bookingInProgress = true;
+          this.bookingError = false;
+          this.bookingErrorMessage = '';
 
-          // Simulate smooth booking (in real app this would be HTMX or fetch to the handler)
-          // For now, we'll use a timeout to simulate and then show success
-          setTimeout(() => {
+          try {
+            const response = await fetch(`/Schedule?handler=BookAjax&scheduledClassId=${this.modalClassId}`, {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+                'X-Requested-With': 'XMLHttpRequest'
+              },
+              body: `scheduledClassId=${this.modalClassId}`
+            });
+
+            const data = await response.json();
+
+            if (data.success) {
+              this.modalSpots = data.spotsRemaining ?? Math.max(0, this.modalSpots - 1);
+              this.bookingSuccess = true;
+              this.bookingInProgress = false;
+
+              // Live update the spot count on the corresponding card in the grid (maximum delight)
+              this.updateCardSpots(this.modalClassId, this.modalSpots);
+
+              // Gentle celebration
+              if (navigator.vibrate) navigator.vibrate([12, 40, 18]);
+            } else {
+              this.bookingInProgress = false;
+              this.bookingError = true;
+              this.bookingErrorMessage = data.message || 'Something went wrong. Please try again.';
+
+              if (data.requiresAuth) {
+                setTimeout(() => {
+                  window.location.href = '/Account/Register?returnUrl=/Schedule';
+                }, 1400);
+              }
+            }
+          } catch (err) {
             this.bookingInProgress = false;
-            this.bookingSuccess = true;
-            
-            // In a real implementation, we would submit the actual form here
-            // and update modalSpots on success
-          }, 850);
+            this.bookingError = true;
+            this.bookingErrorMessage = 'Network hiccup. Please check your connection and try once more.';
+          }
+        },
+
+        updateCardSpots(classId, newSpots) {
+          // Live update any matching card after successful booking (beautiful instant feedback)
+          document.querySelectorAll('.schedule-card').forEach(card => {
+            if (card.dataset.classId == classId) {
+              const spotsEl = card.querySelector('.spots-count');
+              if (spotsEl) {
+                spotsEl.textContent = newSpots;
+                spotsEl.classList.add('!text-lumina-sage', 'font-bold');
+                setTimeout(() => {
+                  spotsEl.classList.remove('!text-lumina-sage', 'font-bold');
+                }, 1800);
+              }
+            }
+          });
         },
 
         viewInDashboard() {
@@ -283,17 +389,95 @@
         },
 
         addToCalendar() {
-          const title = encodeURIComponent(`Lumina: ${this.modalTitle}`);
-          const startDate = new Date(this.modalTime);
-          const endDate = new Date(startDate.getTime() + 60 * 60 * 1000);
-          
-          const start = startDate.toISOString().replace(/-|:|\.\d\d\d/g, "");
-          const end = endDate.toISOString().replace(/-|:|\.\d\d\d/g, "");
-          
-          const url = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&dates=${start}/${end}&details=Your%20class%20at%20Lumina%20Wellness%20Studio%2C%20Rondebosch`;
+          const title = encodeURIComponent(`Lumina • ${this.modalTitle}`);
+          let startDate;
+          try {
+            startDate = new Date(this.modalTime);
+          } catch {
+            startDate = new Date(Date.now() + 1000 * 60 * 60 * 24);
+          }
+          const endDate = new Date(startDate.getTime() + 65 * 60 * 1000);
+
+          const fmt = (d) => d.toISOString().replace(/-|:|\.\d\d\d/g, "");
+          const url = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&dates=${fmt(startDate)}/${fmt(endDate)}&details=Move+with+presence+at+Lumina+Wellness+Studio%2C+Rondebosch%2C+Cape+Town&location=Lumina+Wellness%2C+Rondebosch`;
           window.open(url, '_blank');
         }
       }
     }
+
+    // === LIVE FILTER + SEARCH (Maximum Wow Interactivity) ===
+    let currentFilter = '';
+
+    window.setScheduleFilter = function(el, filterValue) {
+      currentFilter = filterValue;
+      
+      // Active pill styling
+      document.querySelectorAll('#schedule-filters button').forEach(b => {
+        b.classList.remove('bg-lumina-sage', 'text-white');
+        b.classList.add('bg-lumina-sage-light', 'text-lumina-charcoal');
+      });
+      el.classList.remove('bg-lumina-sage-light', 'text-lumina-charcoal');
+      el.classList.add('bg-lumina-sage', 'text-white');
+
+      window.filterScheduleCards();
+    };
+
+    window.filterScheduleCards = function() {
+      const searchVal = (document.getElementById('schedule-search')?.value || '').toLowerCase().trim();
+      const cards = document.querySelectorAll('#schedule-grid .schedule-card');
+
+      cards.forEach(card => {
+        const modalities = (card.dataset.modalities || '').toLowerCase();
+        const level = (card.dataset.level || '').toLowerCase();
+        const name = (card.dataset.name || '').toLowerCase();
+        const instructor = (card.dataset.instructor || '').toLowerCase();
+
+        let visible = true;
+
+        if (searchVal) {
+          visible = name.includes(searchVal) || instructor.includes(searchVal) || modalities.includes(searchVal);
+        }
+
+        if (visible && currentFilter) {
+          if (currentFilter === 'Pilates' && !modalities.includes('pilates')) visible = false;
+          if (currentFilter === 'Yoga' && !modalities.includes('yoga')) visible = false;
+          if (currentFilter === 'Beginner' && !level.includes('beginner')) visible = false;
+        }
+
+        card.style.display = visible ? '' : 'none';
+      });
+    };
+
+    // Bridge function so onclick attributes can open the beautiful Alpine modal
+    window.openScheduleModal = function(id, title, instructor, time, description, access, capacity, booked) {
+      // Access the Alpine component instance on the root div
+      const root = document.querySelector('[x-data="schedulePage()"]');
+      if (root && root._x_dataStack) {
+        const data = root._x_dataStack[0];
+        if (data && data.openModal) {
+          data.openModal(id, title, instructor, time, description, access, capacity, booked);
+          return;
+        }
+      }
+      // Fallback: direct navigation to a simple detail if Alpine not ready
+      window.location.href = '/Schedule?class=' + id;
+    };
+
+    // Keyboard escape for modal
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') {
+        const root = document.querySelector('[x-data="schedulePage()"]');
+        if (root && root._x_dataStack) {
+          const data = root._x_dataStack[0];
+          if (data && data.closeModal) data.closeModal();
+        }
+      }
+    });
+
+    // Initialize filters with nice active state on first load
+    document.addEventListener('DOMContentLoaded', () => {
+      const firstBtn = document.querySelector('#schedule-filters button');
+      if (firstBtn) firstBtn.classList.add('bg-lumina-sage', 'text-white');
+    });
     </script>
 }

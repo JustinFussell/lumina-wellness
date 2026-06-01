@@ -1,12 +1,140 @@
 @page
 @model Lumina.Pages.Admin.ReportsModel
 @{
-    ViewData["Title"] = "Reports";
+    ViewData["Title"] = "Reports & Analytics";
 }
 
-<div class="max-w-7xl mx-auto px-6 py-8">
-    <h1 class="section-title text-3xl mb-6">Reports & Analytics</h1>
-    <div class="lumina-card p-8 text-center text-lumina-charcoal/70">
-        Occupancy trends, popular classes, retention, and revenue reports will appear here soon.
+<div class="max-w-7xl mx-auto px-6 py-10">
+    <div class="flex items-end justify-between mb-8">
+        <div>
+            <div class="text-xs tracking-[3px] text-lumina-sage">STUDIO PULSE</div>
+            <h1 class="section-title text-5xl tracking-tighter">Reports &amp; Insights</h1>
+        </div>
+        <div class="text-xs text-lumina-charcoal/50 hidden md:block">Last 30 days • Rondebosch</div>
     </div>
+
+    <!-- KPI Row -->
+    <div class="grid md:grid-cols-4 gap-5 mb-8">
+        <div class="lumina-card p-6">
+            <div class="text-xs tracking-widest text-lumina-sage">TOTAL BOOKINGS</div>
+            <div class="text-6xl font-light tracking-tighter mt-3">@Model.TotalBookings</div>
+            <div class="text-emerald-600 text-sm mt-2">↑ @Model.BookingGrowth% from last month</div>
+        </div>
+        <div class="lumina-card p-6">
+            <div class="text-xs tracking-widest text-lumina-sage">AVG OCCUPANCY</div>
+            <div class="text-6xl font-light tracking-tighter mt-3">@Model.AverageOccupancy<span class="text-3xl align-super text-lumina-charcoal/50">%</span></div>
+            <div class="mt-3 text-sm text-lumina-charcoal/70">Strong, steady presence</div>
+        </div>
+        <div class="lumina-card p-6">
+            <div class="text-xs tracking-widest text-lumina-sage">ACTIVE MEMBERS</div>
+            <div class="text-6xl font-light tracking-tighter mt-3">@Model.ActiveMembers</div>
+            <div class="text-sm mt-2 text-lumina-charcoal/70">@Model.NewMembersThisMonth new this month</div>
+        </div>
+        <div class="lumina-card p-6">
+            <div class="text-xs tracking-widest text-lumina-sage">CREDITS REDEEMED</div>
+            <div class="text-6xl font-light tracking-tighter mt-3">@Model.CreditsRedeemed</div>
+            <div class="text-sm mt-2 text-lumina-charcoal/70">Beautiful movement delivered</div>
+        </div>
+    </div>
+
+    <div class="grid lg:grid-cols-5 gap-6">
+        <!-- Occupancy Trend Chart -->
+        <div class="lg:col-span-3 lumina-card p-7">
+            <div class="flex justify-between items-center mb-4">
+                <div>
+                    <div class="font-medium">Occupancy over time</div>
+                    <div class="text-xs text-lumina-charcoal/60">Daily average fill rate</div>
+                </div>
+            </div>
+            <div class="h-72">
+                <canvas id="occupancyChart"></canvas>
+            </div>
+        </div>
+
+        <!-- Class Popularity -->
+        <div class="lg:col-span-2 lumina-card p-7">
+            <div class="font-medium mb-4">Most loved classes</div>
+            <div class="space-y-4 text-sm">
+                @foreach (var item in Model.PopularClasses)
+                {
+                    <div class="flex items-center gap-4">
+                        <div class="flex-1">
+                            <div class="font-medium">@item.Name</div>
+                            <div class="h-2 bg-lumina-sage-light rounded mt-1.5 overflow-hidden">
+                                <div class="h-2 bg-lumina-sage rounded" style="width: @(item.Percentage)%"></div>
+                            </div>
+                        </div>
+                        <div class="font-semibold tabular-nums w-9 text-right">@item.Percentage%</div>
+                    </div>
+                }
+            </div>
+            <div class="text-[10px] text-lumina-charcoal/50 mt-6">Restorative continues to be the quiet hero for nervous systems.</div>
+        </div>
+
+        <!-- Teacher Load + Retention Insight -->
+        <div class="lg:col-span-3 lumina-card p-7">
+            <div class="font-medium mb-5">Teacher load this month</div>
+            <div class="grid grid-cols-3 gap-4">
+                @foreach (var t in Model.TeacherStats)
+                {
+                    <div class="p-4 rounded-2xl bg-lumina-sage-light/30">
+                        <div class="text-sm font-medium">@t.Name</div>
+                        <div class="text-4xl font-light tracking-tight mt-3">@t.Classes</div>
+                        <div class="text-xs text-lumina-charcoal/60 mt-0.5">classes taught</div>
+                        <div class="mt-2 text-xs text-lumina-sage">@t.AttendanceRate% avg attendance</div>
+                    </div>
+                }
+            </div>
+        </div>
+
+        <div class="lg:col-span-2 lumina-card p-7 flex flex-col">
+            <div class="font-medium">Retention insight</div>
+            <div class="mt-auto">
+                <div class="text-6xl font-light tracking-tighter">87%</div>
+                <div class="text-lumina-charcoal/70 mt-1">of members who attended 3+ classes returned within 14 days.</div>
+                <div class="mt-4 text-xs px-4 py-2 bg-lumina-sage-light/40 rounded-2xl inline-block text-lumina-charcoal/70">This is the heart of what we do.</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="mt-6 text-xs text-center text-lumina-charcoal/40 tracking-widest">Data refreshes automatically. Export CSV available on request.</div>
 </div>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        // Beautiful serene line chart for occupancy
+        const ctx = document.getElementById('occupancyChart');
+        if (ctx) {
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4'],
+                    datasets: [{
+                        label: 'Average Occupancy %',
+                        data: @Html.Raw(System.Text.Json.JsonSerializer.Serialize(Model.OccupancyTrend)),
+                        borderColor: '#8B9A7D',
+                        backgroundColor: 'rgba(139, 154, 125, 0.12)',
+                        borderWidth: 3,
+                        tension: 0.38,
+                        fill: true,
+                        pointBackgroundColor: '#8B9A7D',
+                        pointBorderColor: '#fff',
+                        pointBorderWidth: 2,
+                        pointRadius: 4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: false }, tooltip: { backgroundColor: '#2F2C27', displayColors: false } },
+                    scales: {
+                        x: { grid: { color: 'rgba(0,0,0,0.04)', lineWidth: 0.6 }, ticks: { color: '#8B9A7D' } },
+                        y: { min: 40, max: 100, grid: { color: 'rgba(0,0,0,0.04)' }, ticks: { color: '#8B9A7D', stepSize: 20, callback: v => v + '%' } }
+                    },
+                    elements: { line: { borderJoinStyle: 'round' }, point: { hitRadius: 18 } }
+                }
+            });
+        }
+    </script>
+}

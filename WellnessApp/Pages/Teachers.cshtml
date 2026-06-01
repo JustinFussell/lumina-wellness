@@ -3,73 +3,93 @@
     ViewData["Title"] = "Our Teachers";
 }
 
-<div class="max-w-5xl mx-auto px-6 py-16">
-    <div class="text-center mb-16">
-        <div class="text-xs tracking-[3px] text-lumina-sage">THE HEART OF LUMINA</div>
-        <h1 class="section-title text-6xl tracking-[-1.5px] mt-3">Our Teachers</h1>
-        <p class="mt-4 max-w-lg mx-auto text-xl text-lumina-charcoal/80">Meet the guides who hold space for your practice with deep care, precision, and presence.</p>
+<!-- Hero -->
+<div class="relative h-[58vh] flex items-center justify-center overflow-hidden">
+    <img src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?q=80&w=2000" class="absolute inset-0 w-full h-full object-cover" alt="Lumina teachers in quiet presence">
+    <div class="absolute inset-0 bg-gradient-to-b from-black/30 via-black/45 to-black/75"></div>
+    <div class="relative text-center text-white px-6">
+        <div class="uppercase tracking-[4px] text-xs mb-3 opacity-75">THE PEOPLE WHO HOLD THE SPACE</div>
+        <h1 class="text-6xl md:text-7xl font-light tracking-[-2.5px]">Our Teachers</h1>
+        <p class="max-w-md mx-auto mt-4 text-xl font-light opacity-90">Guides who see you. Movement offered with precision, warmth, and deep respect for every body.</p>
     </div>
+</div>
 
-    <div class="space-y-16">
-        <!-- Thandi -->
-        <div class="grid md:grid-cols-12 gap-x-12 items-center">
+<div class="max-w-5xl mx-auto px-6 py-16">
+    <div class="space-y-20">
+        <!-- Thandi - Founder -->
+        <div class="grid md:grid-cols-12 gap-x-12 items-center group">
             <div class="md:col-span-5">
-                <div class="aspect-[4/3] rounded-3xl overflow-hidden elegant-shadow">
-                    <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=1200" class="w-full h-full object-cover" alt="Thandi Mokoena">
+                <div class="aspect-[4/3] rounded-3xl overflow-hidden elegant-shadow relative">
+                    <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=1400" class="w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-700" alt="Thandi Mokoena">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
                 </div>
             </div>
             <div class="md:col-span-7 mt-8 md:mt-0">
-                <div class="uppercase tracking-[2px] text-xs text-lumina-sage">FOUNDER</div>
-                <h2 class="text-5xl font-light tracking-tight mt-1">Thandi Mokoena</h2>
-                <div class="text-lumina-terracotta mt-1">Reformer • Restorative • Prenatal</div>
+                <div class="flex items-center gap-3">
+                    <div class="uppercase tracking-[2.5px] text-xs text-lumina-sage">FOUNDER &amp; LEAD TEACHER</div>
+                </div>
+                <h2 class="text-5xl font-light tracking-tight mt-2">Thandi Mokoena</h2>
+                <div class="text-lumina-terracotta mt-1 text-lg">Reformer • Restorative • Prenatal</div>
                 
-                <div class="prose text-lumina-charcoal/80 mt-6">
-                    <p>Thandi founded Lumina after her own journey from professional dance to physiotherapy to finding deep healing through mindful movement. She teaches with a rare combination of technical precision and profound compassion.</p>
-                    <p>Her classes are known for their intelligent sequencing and the way she makes every person in the room feel truly seen.</p>
+                <div class="prose prose-neutral text-lumina-charcoal/80 mt-6 max-w-[52ch]">
+                    <p>Thandi founded Lumina after her own journey through professional dance, physiotherapy, and the profound realization that healing happens when we feel truly held. Her teaching carries both surgical precision and mothering warmth.</p>
+                    <p>Students often say they feel seen in a way they never have before in a movement space.</p>
                 </div>
 
-                <div class="mt-6 text-sm text-lumina-charcoal/60">
-                    "Movement is medicine when it’s offered with presence."
-                </div>
+                <div class="mt-5 italic text-sm text-lumina-charcoal/70 border-l-2 border-lumina-sage pl-4">"Movement is medicine when it is offered with true presence."</div>
+
+                <a asp-page="/Schedule" class="mt-6 inline-flex text-sm tracking-widest text-lumina-sage hover:text-lumina-terracotta">BOOK A CLASS WITH THANDI →</a>
             </div>
         </div>
 
         <!-- Liam -->
-        <div class="grid md:grid-cols-12 gap-x-12 items-center">
+        <div class="grid md:grid-cols-12 gap-x-12 items-center group">
             <div class="md:col-span-5 order-1 md:order-2">
-                <div class="aspect-[4/3] rounded-3xl overflow-hidden elegant-shadow">
-                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=1200" class="w-full h-full object-cover" alt="Liam van der Berg">
+                <div class="aspect-[4/3] rounded-3xl overflow-hidden elegant-shadow relative">
+                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=1400" class="w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-700" alt="Liam van der Berg">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
                 </div>
             </div>
             <div class="md:col-span-7 mt-8 md:mt-0 order-2 md:order-1">
-                <div class="uppercase tracking-[2px] text-xs text-lumina-sage">COACH</div>
-                <h2 class="text-5xl font-light tracking-tight mt-1">Liam van der Berg</h2>
-                <div class="text-lumina-terracotta mt-1">Mat Flow • Functional Movement • Strength</div>
+                <div class="uppercase tracking-[2.5px] text-xs text-lumina-sage">FUNCTIONAL MOVEMENT COACH</div>
+                <h2 class="text-5xl font-light tracking-tight mt-2">Liam van der Berg</h2>
+                <div class="text-lumina-terracotta mt-1 text-lg">Mat Flow • Functional Movement • Strength</div>
                 
-                <div class="prose text-lumina-charcoal/80 mt-6">
-                    <p>Liam brings a playful yet deeply grounded energy to every class. With a background in sports science and years working alongside physiotherapists, he has a gift for making complex movement simple and accessible.</p>
-                    <p>He believes strength should feel good in the body, not punishing.</p>
+                <div class="prose prose-neutral text-lumina-charcoal/80 mt-6 max-w-[52ch]">
+                    <p>Liam’s background in sports science and years collaborating with physiotherapists gives him an almost uncanny ability to translate complex biomechanics into movement that simply feels good.</p>
+                    <p>He is the teacher who makes the "hard" classes feel surprisingly kind to the body.</p>
                 </div>
+
+                <a asp-page="/Schedule" class="mt-6 inline-flex text-sm tracking-widest text-lumina-sage hover:text-lumina-terracotta">BOOK A CLASS WITH LIAM →</a>
             </div>
         </div>
 
-        <!-- Aisha -->
-        <div class="grid md:grid-cols-12 gap-x-12 items-center">
+        <!-- Aisha - Accessibility Champion -->
+        <div class="grid md:grid-cols-12 gap-x-12 items-center group">
             <div class="md:col-span-5">
-                <div class="aspect-[4/3] rounded-3xl overflow-hidden elegant-shadow">
-                    <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=1200" class="w-full h-full object-cover" alt="Aisha Khan">
+                <div class="aspect-[4/3] rounded-3xl overflow-hidden elegant-shadow relative">
+                    <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=1400" class="w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-700" alt="Aisha Khan">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
                 </div>
             </div>
             <div class="md:col-span-7 mt-8 md:mt-0">
-                <div class="uppercase tracking-[2px] text-xs text-lumina-sage">INCLUSIVE MOVEMENT SPECIALIST</div>
-                <h2 class="text-5xl font-light tracking-tight mt-1">Aisha Khan</h2>
-                <div class="text-lumina-terracotta mt-1">Adaptive Yoga • Chair Yoga • Low-Sensory</div>
+                <div class="uppercase tracking-[2.5px] text-xs text-lumina-sage">INCLUSIVE MOVEMENT SPECIALIST</div>
+                <h2 class="text-5xl font-light tracking-tight mt-2">Aisha Khan</h2>
+                <div class="text-lumina-terracotta mt-1 text-lg">Adaptive Yoga • Chair Yoga • Low-Sensory • Neurodivergent-Affirming</div>
                 
-                <div class="prose text-lumina-charcoal/80 mt-6">
-                    <p>Aisha’s classes are sanctuaries. She has dedicated her practice to making movement truly accessible — for neurodivergent bodies, chronic illness, seniors, and anyone who has ever felt othered in traditional fitness spaces.</p>
-                    <p>Her teaching is gentle, precise, and profoundly welcoming.</p>
+                <div class="prose prose-neutral text-lumina-charcoal/80 mt-6 max-w-[52ch]">
+                    <p>Aisha has made it her life’s work to ensure that no one feels othered in a movement space. Her classes are sanctuaries for bodies that have been told they don’t belong — chronic illness, neurodivergence, seniors, post-injury, and every beautiful variation in between.</p>
+                    <p>She teaches with the quiet conviction that every body deserves to feel at home in movement.</p>
                 </div>
+
+                <div class="mt-4 text-xs px-4 py-2 bg-lumina-sage-light inline-block rounded-2xl text-lumina-charcoal/70">Many students are referred here directly from the physiotherapists downstairs.</div>
+
+                <a asp-page="/Schedule" class="mt-6 block text-sm tracking-widest text-lumina-sage hover:text-lumina-terracotta">BOOK A CLASS WITH AISHA →</a>
             </div>
         </div>
+    </div>
+
+    <div class="mt-20 text-center border-t border-lumina-sage-light pt-12 text-sm text-lumina-charcoal/60 max-w-md mx-auto">
+        Every teacher at Lumina works closely with the physiotherapy team in our building. Your movement practice and your healing journey are held as one.
     </div>
 </div>
