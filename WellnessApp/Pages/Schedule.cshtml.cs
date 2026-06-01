@@ -42,7 +42,6 @@ public class ScheduleModel : PageModel
             .ToListAsync();
     }
 
-    [Authorize]
     public async Task<IActionResult> OnPostBookAsync(int scheduledClassId)
     {
         var userId = _userManager.GetUserId(User);

@@ -36,6 +36,6 @@ public class ApplicationUser : IdentityUser
 
     // Navigation properties
     public ICollection<Booking> Bookings { get; set; } = new List<Booking>();
-    public ICollection<UserCredit> Credits { get; set; } = new List<UserCredit>();
+    public ICollection<UserCredit> UserCredits { get; set; } = new List<UserCredit>();
     public ICollection<Waiver> Waivers { get; set; } = new List<Waiver>();
 }

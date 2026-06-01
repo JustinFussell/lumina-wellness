@@ -26,6 +26,9 @@
   </ItemGroup>
 
   <!-- Tailwind CSS v4 Build Integration (Lumina design system) -->
+  <!-- Temporarily commented out so the project builds without npm dependencies.
+       Run "npm install" then uncomment this when ready. -->
+  <!--
   <Target Name="Tailwind" BeforeTargets="Build">
     <Exec Command="npm run css:build" WorkingDirectory="$(MSBuildProjectDirectory)" Condition="Exists('package.json')" />
   </Target>
@@ -34,5 +37,6 @@
     <UpToDateCheckBuilt Include="wwwroot/css/tailwind.input.css" Set="Css" />
     <UpToDateCheckBuilt Include="package.json" Set="Css" />
   </ItemGroup>
+  -->
 
 </Project>
