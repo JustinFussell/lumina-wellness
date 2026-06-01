@@ -81,7 +81,7 @@ Lumina is inspired by tools like Octiv but reimagined for a single, high-end bou
 
 ```bash
 # Clone the repository
-git clone https://github.com/JustinFussell23/lumina-wellness.git
+git clone https://github.com/JustinFussell/lumina-wellness.git
 cd lumina-wellness
 
 # Restore .NET packages
