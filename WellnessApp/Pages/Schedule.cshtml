@@ -20,58 +20,18 @@
         </div>
     </div>
 
-    <!-- Filters -->
-    <div class="lumina-card p-6 mb-8" x-data="{ 
-        modality: '', 
-        level: '',
-        search: ''
-    }">
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
-            <div>
-                <label class="block text-xs uppercase tracking-widest text-lumina-sage mb-1.5">Search</label>
-                <input type="text" 
-                       x-model="search"
-                       placeholder="Reformer, Restorative, morning..."
-                       class="w-full rounded-2xl border border-lumina-sage-light bg-white px-4 py-2.5 text-sm focus:outline-none focus:border-lumina-sage">
-            </div>
-            
-            <div>
-                <label class="block text-xs uppercase tracking-widest text-lumina-sage mb-1.5">Modality</label>
-                <select x-model="modality" class="w-full rounded-2xl border border-lumina-sage-light bg-white px-4 py-2.5 text-sm">
-                    <option value="">All Modalities</option>
-                    <option value="Pilates">Pilates</option>
-                    <option value="Yoga">Yoga</option>
-                    <option value="Barre">Barre</option>
-                    <option value="Meditation">Breath & Meditation</option>
-                </select>
-            </div>
-
-            <div>
-                <label class="block text-xs uppercase tracking-widest text-lumina-sage mb-1.5">Level</label>
-                <select x-model="level" class="w-full rounded-2xl border border-lumina-sage-light bg-white px-4 py-2.5 text-sm">
-                    <option value="">Any Level</option>
-                    <option value="Beginner">Beginner Friendly</option>
-                    <option value="All Levels">All Levels</option>
-                    <option value="Intermediate">Intermediate</option>
-                </select>
-            </div>
-
-            <div class="flex items-end">
-                <button @click="modality = ''; level = ''; search = ''" 
-                        class="lumina-btn-ghost w-full md:w-auto">
-                    Clear filters
-                </button>
-            </div>
-        </div>
+    <!-- Filters (simplified for initial build) -->
+    <div class="lumina-card p-6 mb-8">
+        <p class="text-sm text-lumina-charcoal/70">
+            Dynamic filters coming in the next update. For now, enjoy the beautiful class cards with real seeded data from our Rondebosch studio.
+        </p>
     </div>
 
     <!-- Schedule Grid -->
     <div class="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
         @foreach (var cls in Model.UpcomingClasses)
         {
-            <div class="class-card lumina-card group flex flex-col overflow-hidden"
-                 x-show="(@cls.ClassType.Modalities.Contains('Pilates') ? 'Pilates' : @cls.ClassType.Modalities.Contains('Yoga') ? 'Yoga' : 'Other').includes(modality) || modality === ''">
-                
+            <div class="class-card lumina-card group flex flex-col overflow-hidden">
                 <div class="px-6 pt-6 pb-4 flex-1">
                     <div class="flex items-start justify-between">
                         <div>
@@ -96,7 +56,7 @@
                     @if (!string.IsNullOrEmpty(cls.ClassType.AccessFeatures))
                     {
                         <div class="mt-4 flex flex-wrap gap-1.5">
-                            @foreach (var feature in cls.ClassType.AccessFeatures.Split('•').Take(3))
+                            @foreach (var feature in cls.ClassType.AccessFeatures.Split('•', StringSplitOptions.RemoveEmptyEntries).Take(3))
                             {
                                 <span class="inline-block rounded-full bg-lumina-sage-light px-3 py-0.5 text-xs text-lumina-charcoal/80">@feature.Trim()</span>
                             }
@@ -107,7 +67,7 @@
                 <div class="border-t border-lumina-sage-light px-6 py-4 flex items-center justify-between bg-white/50">
                     <div>
                         <div class="text-xs text-lumina-charcoal/60">Spots left</div>
-                        <div class="font-medium">@(cls.EffectiveCapacity - cls.Bookings.Count()) / @cls.EffectiveCapacity</div>
+                        <div class="font-medium">@(cls.EffectiveCapacity - cls.Bookings.Count) / @cls.EffectiveCapacity</div>
                     </div>
 
                     <a asp-page="/Account/Register" 

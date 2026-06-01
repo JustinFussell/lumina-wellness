@@ -1,3 +1,8 @@
+using Lumina.Data;
+using Lumina.Services;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // ============================================
@@ -61,7 +66,7 @@ app.MapRazorPages();
 // Seed demo data on startup (Rondebosch Lumina studio)
 using (var scope = app.Services.CreateScope())
 {
-    var seeder = scope.ServiceProvider.GetRequiredService<Lumina.Services.DatabaseSeeder>();
+    var seeder = scope.ServiceProvider.GetRequiredService<Lumina.Data.DatabaseSeeder>();
     await seeder.SeedAsync();
 }
 
