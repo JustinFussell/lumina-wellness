@@ -63,7 +63,7 @@
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     
     <style>
-      /* Maximum Wow - Modern Wellness Aesthetics */
+      /* === LUMINA MAXIMUM WOW DESIGN SYSTEM === */
       .glass {
         background: rgba(255, 255, 255, 0.75);
         backdrop-filter: blur(20px);
@@ -119,6 +119,36 @@
       
       .smooth-modal {
         animation: scaleIn 0.2s cubic-bezier(0.23, 1, 0.32, 1);
+      }
+
+      /* Refined Buttons */
+      .btn-lumina {
+        @apply inline-flex items-center justify-center rounded-3xl font-medium transition-all active:scale-[0.985];
+      }
+      .btn-lumina-primary {
+        @apply bg-lumina-terracotta text-white hover:bg-lumina-terracotta/90 shadow-lg;
+      }
+      .btn-lumina-secondary {
+        @apply border border-lumina-charcoal/80 hover:bg-lumina-charcoal hover:text-white;
+      }
+
+      /* Image Treatment */
+      .wellness-image {
+        transition: transform 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+      }
+      .group:hover .wellness-image {
+        transform: scale(1.06);
+      }
+
+      /* Subtle Scroll Animations */
+      .reveal {
+        opacity: 0;
+        transform: translateY(20px);
+        transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+      }
+      .reveal.visible {
+        opacity: 1;
+        transform: translateY(0);
       }
     </style>
     
