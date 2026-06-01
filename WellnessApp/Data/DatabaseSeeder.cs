@@ -90,8 +90,50 @@ public class DatabaseSeeder
             await _db.SaveChangesAsync();
         }
 
-        // TODO: Add ScheduledClasses for the next 3 weeks + sample members + bookings
-        // This will be expanded in the next commit for a truly impressive demo.
+        // Add some upcoming classes for the next 10 days (demo)
+        if (!await _db.ScheduledClasses.AnyAsync())
+        {
+            var reformer = await _db.ClassTypes.FirstAsync(c => c.Slug == "reformer-pilates");
+            var restorative = await _db.ClassTypes.FirstAsync(c => c.Slug == "restorative-yoga");
+            var thandi = await _db.Instructors.FirstAsync(i => i.Name.Contains("Thandi"));
+            var liam = await _db.Instructors.FirstAsync(i => i.Name.Contains("Liam"));
+            var aisha = await _db.Instructors.FirstAsync(i => i.Name.Contains("Aisha"));
+
+            var baseDate = DateTime.UtcNow.Date.AddDays(1);
+
+            var classesToAdd = new List<ScheduledClass>();
+
+            for (int i = 0; i < 10; i++)
+            {
+                var day = baseDate.AddDays(i);
+                
+                // Morning Reformer with Thandi
+                classesToAdd.Add(new ScheduledClass
+                {
+                    ClassTypeId = reformer.Id,
+                    InstructorId = thandi.Id,
+                    StartUtc = day.AddHours(7).AddMinutes(30),
+                    EndUtc = day.AddHours(8).AddMinutes(25),
+                    Room = "Reformer Studio"
+                });
+
+                // Evening Restorative with Aisha (very accessible)
+                if (i % 2 == 0)
+                {
+                    classesToAdd.Add(new ScheduledClass
+                    {
+                        ClassTypeId = restorative.Id,
+                        InstructorId = aisha.Id,
+                        StartUtc = day.AddHours(18),
+                        EndUtc = day.AddHours(19).AddMinutes(15),
+                        Room = "Main Studio"
+                    });
+                }
+            }
+
+            _db.ScheduledClasses.AddRange(classesToAdd);
+            await _db.SaveChangesAsync();
+        }
     }
 
     private async Task EnsureRoleAsync(string roleName)
