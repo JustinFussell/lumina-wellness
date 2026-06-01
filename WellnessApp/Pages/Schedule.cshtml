@@ -67,13 +67,26 @@
                 <div class="border-t border-lumina-sage-light px-6 py-4 flex items-center justify-between bg-white/50">
                     <div>
                         <div class="text-xs text-lumina-charcoal/60">Spots left</div>
-                        <div class="font-medium">@(cls.EffectiveCapacity - cls.Bookings.Count) / @cls.EffectiveCapacity</div>
+                        <div class="font-medium">@(cls.EffectiveCapacity - cls.Bookings.Count(b => b.Status == BookingStatus.Reserved || b.Status == BookingStatus.Attended)) / @cls.EffectiveCapacity</div>
                     </div>
 
-                    <a asp-page="/Account/Register" 
-                       class="lumina-btn-primary text-sm px-6 py-2 group-hover:bg-lumina-terracotta transition-colors">
-                        Book class
-                    </a>
+                    @if (User.Identity?.IsAuthenticated == true)
+                    {
+                        <form method="post" asp-page-handler="Book">
+                            <input type="hidden" name="scheduledClassId" value="@cls.Id" />
+                            <button type="submit" 
+                                    class="lumina-btn-primary text-sm px-6 py-2 group-hover:bg-lumina-terracotta transition-colors">
+                                Book
+                            </button>
+                        </form>
+                    }
+                    else
+                    {
+                        <a asp-page="/Account/Register" 
+                           class="lumina-btn-primary text-sm px-6 py-2 group-hover:bg-lumina-terracotta transition-colors">
+                            Join to book
+                        </a>
+                    }
                 </div>
             </div>
         }
