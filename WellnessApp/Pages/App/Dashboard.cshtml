@@ -1,0 +1,61 @@
+@page
+@model Lumina.Pages.App.DashboardModel
+@{
+    ViewData["Title"] = "My Practice";
+}
+
+<div class="max-w-5xl mx-auto px-6 py-10">
+    <h1 class="section-title text-4xl tracking-tight">Good to see you, @User.Identity?.Name?.Split(' ').FirstOrDefault() or "friend".</h1>
+    <p class="mt-2 text-lumina-charcoal/70">Your practice at Lumina.</p>
+
+    <div class="grid md:grid-cols-3 gap-6 mt-8">
+        <!-- Quick Stats -->
+        <div class="lumina-card p-6">
+            <div class="text-sm text-lumina-sage">This month</div>
+            <div class="text-4xl font-light mt-2">@Model.ThisMonthClasses</div>
+            <div class="text-lumina-charcoal/70">classes practiced</div>
+        </div>
+
+        <div class="lumina-card p-6">
+            <div class="text-sm text-lumina-sage">Current balance</div>
+            <div class="text-4xl font-light mt-2">@Model.CreditsRemaining</div>
+            <div class="text-lumina-charcoal/70">credits remaining</div>
+        </div>
+
+        <div class="lumina-card p-6">
+            <div class="text-sm text-lumina-sage">Next class</div>
+            @if (Model.NextBooking != null)
+            {
+                <div class="mt-1 font-medium">@Model.NextBooking.ScheduledClass.ClassType.Name</div>
+                <div class="text-sm text-lumina-charcoal/70">@Model.NextBooking.ScheduledClass.StartUtc.ToString("f")</div>
+            }
+            else
+            {
+                <div class="mt-2 text-lumina-charcoal/60">Nothing booked yet</div>
+            }
+        </div>
+    </div>
+
+    <div class="mt-10">
+        <h2 class="text-2xl font-medium mb-4">Upcoming Bookings</h2>
+        @if (Model.UpcomingBookings.Any())
+        {
+            <div class="space-y-4">
+                @foreach (var b in Model.UpcomingBookings)
+                {
+                    <div class="lumina-card p-5 flex justify-between items-center">
+                        <div>
+                            <div class="font-medium">@b.ScheduledClass.ClassType.Name</div>
+                            <div class="text-sm text-lumina-charcoal/70">@b.ScheduledClass.StartUtc.ToString("f") with @b.ScheduledClass.Instructor.Name</div>
+                        </div>
+                        <a asp-page="/Schedule" class="text-sm text-lumina-sage hover:underline">View in schedule</a>
+                    </div>
+                }
+            </div>
+        }
+        else
+        {
+            <p class="text-lumina-charcoal/70">No upcoming classes. <a asp-page="/Schedule" class="text-lumina-sage">Browse the schedule →</a></p>
+        }
+    </div>
+</div>
