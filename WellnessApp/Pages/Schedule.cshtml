@@ -167,17 +167,25 @@
         </div>
 
         <!-- Beautiful Success State -->
-        <div x-show="bookingSuccess" class="p-8 text-center">
-            <div class="mx-auto w-16 h-16 rounded-full bg-lumina-sage-light flex items-center justify-center mb-6">
+        <div x-show="bookingSuccess" class="p-8 text-center relative overflow-hidden">
+            <!-- Simple CSS Confetti -->
+            <div class="absolute inset-0 pointer-events-none">
+                <div class="absolute text-2xl animate-bounce" style="left:10%; top:20%; animation-delay:0.1s">🌿</div>
+                <div class="absolute text-2xl animate-bounce" style="left:25%; top:35%; animation-delay:0.4s">✨</div>
+                <div class="absolute text-2xl animate-bounce" style="left:70%; top:15%; animation-delay:0.7s">🌿</div>
+                <div class="absolute text-2xl animate-bounce" style="left:80%; top:40%; animation-delay:0.2s">✨</div>
+            </div>
+
+            <div class="mx-auto w-16 h-16 rounded-full bg-lumina-sage-light flex items-center justify-center mb-6 relative z-10">
                 <svg class="w-8 h-8 text-lumina-sage" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path>
                 </svg>
             </div>
             
-            <div class="text-2xl font-medium tracking-tight mb-2">You're in.</div>
-            <p class="text-lumina-charcoal/70 mb-8">Your spot in <span class="font-medium" x-text="modalTitle"></span> is confirmed.</p>
+            <div class="text-2xl font-medium tracking-tight mb-2 relative z-10">You're in.</div>
+            <p class="text-lumina-charcoal/70 mb-8 relative z-10">Your spot in <span class="font-medium" x-text="modalTitle"></span> is confirmed.</p>
 
-            <div class="flex flex-col gap-3">
+            <div class="flex flex-col gap-3 relative z-10">
                 <button @click="viewInDashboard()" 
                         class="w-full lumina-btn-primary py-3">
                     View in My Practice
