@@ -25,7 +25,10 @@ public class DatabaseSeeder
 
     public async Task SeedAsync()
     {
-        await _db.Database.MigrateAsync();
+        // === EASY DEVELOPMENT FIX ===
+        // This creates the database + all tables (including login tables) automatically.
+        // Much simpler than migrations while you're testing.
+        await _db.Database.EnsureCreatedAsync();
 
         // Roles
         await EnsureRoleAsync("Member");
