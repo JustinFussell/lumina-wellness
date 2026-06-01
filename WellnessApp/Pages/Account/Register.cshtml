@@ -1,0 +1,49 @@
+@page
+@model Lumina.Pages.Account.RegisterModel
+@{
+    ViewData["Title"] = "Join Lumina";
+}
+
+<div class="max-w-md mx-auto px-6 py-12">
+    <h1 class="section-title text-4xl text-center tracking-tight">Begin your practice</h1>
+    <p class="text-center mt-3 text-lumina-charcoal/70">Create your account and tell us a little about how you'd like to move.</p>
+
+    <form method="post" class="mt-8 space-y-6">
+        <div>
+            <label class="block text-sm mb-1.5">Full Name</label>
+            <input asp-for="Input.FullName" class="w-full rounded-2xl border border-lumina-sage-light px-4 py-3" />
+        </div>
+
+        <div class="grid grid-cols-2 gap-4">
+            <div>
+                <label class="block text-sm mb-1.5">Email</label>
+                <input asp-for="Input.Email" class="w-full rounded-2xl border border-lumina-sage-light px-4 py-3" />
+            </div>
+            <div>
+                <label class="block text-sm mb-1.5">Pronouns (optional)</label>
+                <input asp-for="Input.Pronouns" class="w-full rounded-2xl border border-lumina-sage-light px-4 py-3" placeholder="she/her, they/them..." />
+            </div>
+        </div>
+
+        <div>
+            <label class="block text-sm mb-1.5">Password</label>
+            <input asp-for="Input.Password" type="password" class="w-full rounded-2xl border border-lumina-sage-light px-4 py-3" />
+        </div>
+
+        <div>
+            <label class="block text-sm mb-1.5">What brings you to Lumina? (optional)</label>
+            <textarea asp-for="Input.Goals" rows="3" class="w-full rounded-3xl border border-lumina-sage-light px-4 py-3" placeholder="Rehab from an injury, stress relief, building strength, trying something new..."></textarea>
+        </div>
+
+        <div>
+            <label class="block text-sm mb-1.5">Anything we should know to support your practice? (injuries, accessibility needs, preferences)</label>
+            <textarea asp-for="Input.AccessibilityNeeds" rows="3" class="w-full rounded-3xl border border-lumina-sage-light px-4 py-3" placeholder="This stays private and helps our teachers support you better."></textarea>
+        </div>
+
+        <button type="submit" class="w-full lumina-btn-primary py-3 text-lg">Create my account</button>
+
+        <p class="text-center text-sm text-lumina-charcoal/60">
+            Already have an account? <a asp-page="/Account/Login" class="text-lumina-sage">Log in</a>
+        </p>
+    </form>
+</div>
