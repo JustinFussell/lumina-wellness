@@ -5,57 +5,73 @@
 }
 
 <div class="max-w-5xl mx-auto px-6 py-10">
-    <h1 class="section-title text-4xl tracking-tight">Good to see you, @User.Identity?.Name?.Split(' ').FirstOrDefault() or "friend".</h1>
-    <p class="mt-2 text-lumina-charcoal/70">Your practice at Lumina.</p>
+    <div class="flex items-center justify-between mb-8">
+        <div>
+            <div class="text-sm text-lumina-sage tracking-widest">YOUR PRACTICE</div>
+            <h1 class="section-title text-5xl tracking-tight mt-1">Good to see you, @User.Identity?.Name?.Split(' ').FirstOrDefault().</h1>
+        </div>
+        <a asp-page="/Schedule" class="hidden md:block lumina-btn-primary">Book your next class</a>
+    </div>
 
-    <div class="grid md:grid-cols-3 gap-6 mt-8">
-        <!-- Quick Stats -->
-        <div class="lumina-card p-6">
-            <div class="text-sm text-lumina-sage">This month</div>
-            <div class="text-4xl font-light mt-2">@Model.ThisMonthClasses</div>
-            <div class="text-lumina-charcoal/70">classes practiced</div>
+    <div class="grid md:grid-cols-3 gap-5">
+        <!-- Stats -->
+        <div class="lumina-card p-7">
+            <div class="text-xs uppercase tracking-widest text-lumina-sage mb-1">This month</div>
+            <div class="text-6xl font-light tracking-tighter">@Model.ThisMonthClasses</div>
+            <div class="text-lumina-charcoal/70">classes moved through</div>
         </div>
 
-        <div class="lumina-card p-6">
-            <div class="text-sm text-lumina-sage">Current balance</div>
-            <div class="text-4xl font-light mt-2">@Model.CreditsRemaining</div>
-            <div class="text-lumina-charcoal/70">credits remaining</div>
+        <div class="lumina-card p-7">
+            <div class="text-xs uppercase tracking-widest text-lumina-sage mb-1">Credits</div>
+            <div class="text-6xl font-light tracking-tighter">@Model.CreditsRemaining</div>
+            <div class="text-lumina-charcoal/70">remaining</div>
         </div>
 
-        <div class="lumina-card p-6">
-            <div class="text-sm text-lumina-sage">Next class</div>
-            @if (Model.NextBooking != null)
-            {
-                <div class="mt-1 font-medium">@Model.NextBooking.ScheduledClass.ClassType.Name</div>
-                <div class="text-sm text-lumina-charcoal/70">@Model.NextBooking.ScheduledClass.StartUtc.ToString("f")</div>
-            }
-            else
-            {
-                <div class="mt-2 text-lumina-charcoal/60">Nothing booked yet</div>
-            }
+        <div class="lumina-card p-7 flex flex-col justify-between">
+            <div>
+                <div class="text-xs uppercase tracking-widest text-lumina-sage mb-1">Next up</div>
+                @if (Model.NextBooking != null)
+                {
+                    <div class="font-medium text-xl">@Model.NextBooking.ScheduledClass.ClassType.Name</div>
+                    <div class="text-sm text-lumina-charcoal/70">@Model.NextBooking.ScheduledClass.StartUtc.ToString("f")</div>
+                }
+                else
+                {
+                    <div class="text-lumina-charcoal/60">Nothing booked yet</div>
+                }
+            </div>
+            <a asp-page="/Schedule" class="text-sm text-lumina-sage hover:text-lumina-terracotta mt-4 inline-block">Browse schedule →</a>
         </div>
     </div>
 
     <div class="mt-10">
-        <h2 class="text-2xl font-medium mb-4">Upcoming Bookings</h2>
+        <div class="flex items-center justify-between mb-4">
+            <h2 class="text-2xl font-medium tracking-tight">Your upcoming practice</h2>
+        </div>
+
         @if (Model.UpcomingBookings.Any())
         {
-            <div class="space-y-4">
+            <div class="space-y-3">
                 @foreach (var b in Model.UpcomingBookings)
                 {
-                    <div class="lumina-card p-5 flex justify-between items-center">
-                        <div>
-                            <div class="font-medium">@b.ScheduledClass.ClassType.Name</div>
-                            <div class="text-sm text-lumina-charcoal/70">@b.ScheduledClass.StartUtc.ToString("f") with @b.ScheduledClass.Instructor.Name</div>
+                    <div class="lumina-card px-6 py-5 flex items-center justify-between group">
+                        <div class="flex items-center gap-x-4">
+                            <div class="w-12 h-12 rounded-2xl bg-lumina-sage-light flex-shrink-0"></div>
+                            <div>
+                                <div class="font-medium">@b.ScheduledClass.ClassType.Name</div>
+                                <div class="text-sm text-lumina-charcoal/70">@b.ScheduledClass.StartUtc.ToString("f") with @b.ScheduledClass.Instructor.Name</div>
+                            </div>
                         </div>
-                        <a asp-page="/Schedule" class="text-sm text-lumina-sage hover:underline">View in schedule</a>
+                        <a asp-page="/Schedule" class="text-sm text-lumina-sage group-hover:text-lumina-terracotta transition">Manage →</a>
                     </div>
                 }
             </div>
         }
         else
         {
-            <p class="text-lumina-charcoal/70">No upcoming classes. <a asp-page="/Schedule" class="text-lumina-sage">Browse the schedule →</a></p>
+            <div class="lumina-card p-8 text-center text-lumina-charcoal/70">
+                Your calendar is open. <a asp-page="/Schedule" class="text-lumina-sage font-medium">Find something beautiful</a> to move through.
+            </div>
         }
     </div>
 </div>
