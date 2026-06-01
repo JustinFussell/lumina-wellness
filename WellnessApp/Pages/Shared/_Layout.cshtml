@@ -308,14 +308,14 @@
         </nav>
     </header>
 
-    <main id="main-content" role="main" class="min-h-[calc(100vh-4rem)]">
+    <main id="main-content" role="main" class="relative z-10 min-h-[calc(100vh-4rem)]">
         @RenderBody()
     </main>
 
     <!-- Modern Mobile Bottom Nav — clean app-like 2026 treatment -->
     @if (User.Identity?.IsAuthenticated == true)
     {
-        <nav class="md:hidden fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur-2xl border-t border-lumina-sage-light/70 z-50">
+        <nav class="md:hidden fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur-2xl border-t border-lumina-sage-light/70 z-[60]">
             <div class="flex justify-around items-center py-1.5 px-1 text-[10px] tracking-widest">
                 <a asp-page="/App/Dashboard" class="flex flex-col items-center px-3 py-1 text-lumina-charcoal active:text-lumina-sage transition-colors">
                     <span class="text-lg mb-px">⌂</span>
@@ -337,7 +337,7 @@
         </nav>
         
         <!-- Floating modern book action -->
-        <div class="md:hidden fixed bottom-[4.25rem] right-5 z-50">
+        <div class="md:hidden fixed bottom-[4.25rem] right-5 z-[60]">
             <a asp-page="/Schedule" 
                class="flex items-center justify-center w-12 h-12 bg-lumina-terracotta text-white rounded-2xl shadow-xl active:scale-[0.94] transition-all text-xl leading-none">
                 +
