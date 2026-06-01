@@ -247,6 +247,15 @@
         outline: 2px solid #C9A87C;
         outline-offset: 3px;
       }
+
+      /* Solid, bold text by default — no more faded look */
+      body, .text-lumina-charcoal {
+        color: #2F2C27;
+      }
+      h1, h2, h3, .section-title {
+        color: #2F2C27;
+        font-weight: 500;
+      }
     </style>
     
     <!-- PWA + Icons (prepared) -->
@@ -277,16 +286,16 @@
                 </a>
 
                 <!-- Desktop Nav — Modern refined pill cluster (active state enhanced in JS for crisp feel) -->
-                <div class="hidden md:flex items-center gap-x-1 text-sm font-medium bg-white/55 backdrop-blur-2xl rounded-3xl px-1.5 py-1 border border-lumina-sage-light/50" id="desktop-nav">
-                    <a asp-page="/Index" class="nav-link px-4 py-1.5 rounded-2xl hover:bg-white/80 transition-colors" data-page="index">Home</a>
-                    <a asp-page="/TheSpace" class="nav-link px-4 py-1.5 rounded-2xl hover:bg-white/80 transition-colors" data-page="thespace">The Space</a>
-                    <a asp-page="/Teachers" class="nav-link px-4 py-1.5 rounded-2xl hover:bg-white/80 transition-colors" data-page="teachers">Teachers</a>
-                    <a asp-page="/Schedule" class="nav-link px-4 py-1.5 rounded-2xl hover:bg-white/80 transition-colors" data-page="schedule">Schedule</a>
-                    <a asp-page="/Pricing" class="nav-link px-4 py-1.5 rounded-2xl hover:bg-white/80 transition-colors" data-page="pricing">Pricing</a>
+                <div class="hidden md:flex items-center gap-x-1 text-sm font-medium bg-white/75 backdrop-blur-2xl rounded-3xl px-1.5 py-1 border border-lumina-sage-light/60" id="desktop-nav">
+                    <a asp-page="/Index" class="nav-link px-4 py-1.5 rounded-2xl hover:bg-white/80 transition-colors text-lumina-charcoal" data-page="index">Home</a>
+                    <a asp-page="/TheSpace" class="nav-link px-4 py-1.5 rounded-2xl hover:bg-white/80 transition-colors text-lumina-charcoal" data-page="thespace">The Space</a>
+                    <a asp-page="/Teachers" class="nav-link px-4 py-1.5 rounded-2xl hover:bg-white/80 transition-colors text-lumina-charcoal" data-page="teachers">Teachers</a>
+                    <a asp-page="/Schedule" class="nav-link px-4 py-1.5 rounded-2xl hover:bg-white/80 transition-colors text-lumina-charcoal" data-page="schedule">Schedule</a>
+                    <a asp-page="/Pricing" class="nav-link px-4 py-1.5 rounded-2xl hover:bg-white/80 transition-colors text-lumina-charcoal" data-page="pricing">Pricing</a>
                     
                     <div class="w-px h-4 bg-lumina-sage-light/60 mx-1"></div>
                     
-                    <a asp-page="/Account/Login" class="px-4 py-1.5 rounded-2xl hover:bg-white/80 text-xs tracking-widest transition-colors">Log in</a>
+                    <a asp-page="/Account/Login" class="px-4 py-1.5 rounded-2xl hover:bg-white/80 text-xs tracking-widest transition-colors text-lumina-charcoal">Log in</a>
                     <a asp-page="/Account/Register" class="lumina-btn-primary px-5 py-1.5 text-xs tracking-widest">Begin</a>
                 </div>
 
@@ -307,19 +316,19 @@
     {
         <nav class="md:hidden fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur-2xl border-t border-lumina-sage-light/70 z-50">
             <div class="flex justify-around items-center py-1.5 px-1 text-[10px] tracking-widest">
-                <a asp-page="/App/Dashboard" class="flex flex-col items-center px-3 py-1 text-lumina-charcoal/65 active:text-lumina-sage transition-colors">
+                <a asp-page="/App/Dashboard" class="flex flex-col items-center px-3 py-1 text-lumina-charcoal active:text-lumina-sage transition-colors">
                     <span class="text-lg mb-px">⌂</span>
                     <span class="font-medium text-[9.5px]">Home</span>
                 </a>
-                <a asp-page="/Schedule" class="flex flex-col items-center px-3 py-1 text-lumina-charcoal/65 active:text-lumina-sage transition-colors">
+                <a asp-page="/Schedule" class="flex flex-col items-center px-3 py-1 text-lumina-charcoal active:text-lumina-sage transition-colors">
                     <span class="text-lg mb-px">◷</span>
                     <span class="font-medium text-[9.5px]">Schedule</span>
                 </a>
-                <a asp-page="/App/Dashboard" class="flex flex-col items-center px-3 py-1 text-lumina-charcoal/65 active:text-lumina-sage transition-colors">
+                <a asp-page="/App/Dashboard" class="flex flex-col items-center px-3 py-1 text-lumina-charcoal active:text-lumina-sage transition-colors">
                     <span class="text-lg mb-px">◉</span>
                     <span class="font-medium text-[9.5px]">Practice</span>
                 </a>
-                <a asp-page="/Account/Login" class="flex flex-col items-center px-3 py-1 text-lumina-charcoal/65 active:text-lumina-sage transition-colors">
+                <a asp-page="/Account/Login" class="flex flex-col items-center px-3 py-1 text-lumina-charcoal active:text-lumina-sage transition-colors">
                     <span class="text-lg mb-px">◐</span>
                     <span class="font-medium text-[9.5px]">Me</span>
                 </a>
@@ -336,7 +345,7 @@
     }
     
     <footer class="border-t border-lumina-sage-light bg-white/60 mt-12">
-        <div class="max-w-7xl mx-auto px-6 py-10 text-sm text-lumina-charcoal/70">
+        <div class="max-w-7xl mx-auto px-6 py-10 text-sm text-lumina-charcoal">
             <div class="flex flex-col md:flex-row justify-between gap-y-4">
                 <div>
                     <span class="font-medium text-lumina-charcoal">Lumina</span> — Movement. Presence. Light.<br />
@@ -348,7 +357,7 @@
                     <a asp-page="/Privacy" class="hover:text-lumina-sage">Privacy</a>
                 </div>
             </div>
-            <div class="mt-8 text-[10px] opacity-60">© 2026 Lumina Wellness Studio. Crafted with care for every body.</div>
+            <div class="mt-8 text-[10px] text-lumina-charcoal/80">© 2026 Lumina Wellness Studio. Crafted with care for every body.</div>
         </div>
     </footer>
 

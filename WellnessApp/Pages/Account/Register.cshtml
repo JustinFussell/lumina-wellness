@@ -8,7 +8,7 @@
     <div class="text-center mb-8">
         <div class="text-[10px] tracking-[3.5px] text-lumina-sage">JOIN LUMINA</div>
         <h1 class="text-5xl font-light tracking-[-1.6px] mt-2">Begin your practice</h1>
-        <p class="mt-3 text-lumina-charcoal/70">Tell us how you want to move so we can support you beautifully from day one.</p>
+        <p class="mt-3 text-lumina-charcoal">Tell us how you want to move so we can support you beautifully from day one.</p>
     </div>
 
     <form method="post" class="space-y-4 bg-white border border-lumina-sage-light/60 rounded-3xl p-7">
@@ -23,7 +23,7 @@
                 <input asp-for="Input.Email" type="email" class="w-full rounded-2xl border border-lumina-sage-light bg-white px-5 py-3.5 text-base focus:border-lumina-sage transition" />
             </div>
             <div>
-                <label class="block text-xs tracking-widest text-lumina-sage mb-1.5">PRONOUNS <span class="opacity-50">(opt)</span></label>
+                <label class="block text-xs tracking-widest text-lumina-sage mb-1.5">PRONOUNS <span class="text-lumina-charcoal/70">(opt)</span></label>
                 <input asp-for="Input.Pronouns" class="w-full rounded-2xl border border-lumina-sage-light bg-white px-5 py-3.5 text-base focus:border-lumina-sage transition" placeholder="they/them" />
             </div>
         </div>
@@ -34,18 +34,18 @@
         </div>
 
         <div>
-            <label class="block text-xs tracking-widest text-lumina-sage mb-1.5">WHAT BRINGS YOU HERE? <span class="opacity-50">(opt)</span></label>
+            <label class="block text-xs tracking-widest text-lumina-sage mb-1.5">WHAT BRINGS YOU HERE? <span class="text-lumina-charcoal/70">(opt)</span></label>
             <textarea asp-for="Input.Goals" rows="2" class="w-full rounded-3xl border border-lumina-sage-light bg-white px-5 py-3 focus:border-lumina-sage transition" placeholder="Strength, rest, rehab..."></textarea>
         </div>
 
         <div>
-            <label class="block text-xs tracking-widest text-lumina-sage mb-1.5">HOW CAN WE SUPPORT YOU BEST? <span class="opacity-50">(opt)</span></label>
+            <label class="block text-xs tracking-widest text-lumina-sage mb-1.5">HOW CAN WE SUPPORT YOU BEST? <span class="text-lumina-charcoal/70">(opt)</span></label>
             <textarea asp-for="Input.AccessibilityNeeds" rows="2" class="w-full rounded-3xl border border-lumina-sage-light bg-white px-5 py-3 focus:border-lumina-sage transition" placeholder="Injuries, neurodivergence, preferences..."></textarea>
         </div>
 
         <button type="submit" class="w-full btn-lumina btn-lumina-primary py-4 text-base mt-2">Create my account</button>
 
-        <p class="text-center text-sm text-lumina-charcoal/60 pt-1">
+        <p class="text-center text-sm text-lumina-charcoal pt-1">
             Already a member? <a asp-page="/Account/Login" class="text-lumina-sage font-medium">Log in</a>
         </p>
     </form>
