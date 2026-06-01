@@ -182,6 +182,12 @@
                         class="w-full lumina-btn-primary py-3">
                     View in My Practice
                 </button>
+                
+                <button @click="addToCalendar()" 
+                        class="w-full text-sm py-2 border border-lumina-sage-light rounded-2xl hover:bg-lumina-sage-light transition flex items-center justify-center gap-2">
+                    <span>Add to Calendar</span>
+                </button>
+                
                 <button @click="closeModal()" 
                         class="w-full text-sm py-2 text-lumina-charcoal/70 hover:text-lumina-charcoal transition">
                     Close
@@ -266,6 +272,18 @@
 
         viewInDashboard() {
           window.location.href = '/App/Dashboard';
+        },
+
+        addToCalendar() {
+          const title = encodeURIComponent(`Lumina: ${this.modalTitle}`);
+          const startDate = new Date(this.modalTime);
+          const endDate = new Date(startDate.getTime() + 60 * 60 * 1000);
+          
+          const start = startDate.toISOString().replace(/-|:|\.\d\d\d/g, "");
+          const end = endDate.toISOString().replace(/-|:|\.\d\d\d/g, "");
+          
+          const url = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&dates=${start}/${end}&details=Your%20class%20at%20Lumina%20Wellness%20Studio%2C%20Rondebosch`;
+          window.open(url, '_blank');
         }
       }
     }
