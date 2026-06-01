@@ -20,15 +20,23 @@ public class ScheduleModel : PageModel
 
     public List<ScheduledClass> UpcomingClasses { get; set; } = new();
 
-    public async Task OnGetAsync()
+    public async Task OnGetAsync(string? modality = null, string? level = null)
     {
         var now = DateTime.UtcNow;
 
-        UpcomingClasses = await _db.ScheduledClasses
+        var query = _db.ScheduledClasses
             .Include(s => s.ClassType)
             .Include(s => s.Instructor)
             .Include(s => s.Bookings)
-            .Where(s => s.StartUtc > now && !s.IsCancelled)
+            .Where(s => s.StartUtc > now && !s.IsCancelled);
+
+        if (!string.IsNullOrEmpty(modality))
+            query = query.Where(s => s.ClassType.Modalities.Contains(modality));
+
+        if (!string.IsNullOrEmpty(level))
+            query = query.Where(s => s.ClassType.Level.Contains(level));
+
+        UpcomingClasses = await query
             .OrderBy(s => s.StartUtc)
             .Take(18)
             .ToListAsync();

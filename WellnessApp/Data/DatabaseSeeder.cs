@@ -58,34 +58,10 @@ public class DatabaseSeeder
         if (!await _db.ClassTypes.AnyAsync())
         {
             _db.ClassTypes.AddRange(
-                new ClassType
-                {
-                    Name = "Reformer Pilates",
-                    Slug = "reformer-pilates",
-                    Description = "Intelligent, precise work on the reformer. Build deep core strength and move with ease.",
-                    DurationMinutes = 55,
-                    DefaultCapacity = 10,
-                    Level = "All Levels",
-                    Modalities = "Pilates",
-                    AccessFeatures = "Chair options available • Prenatal modifications • Low lighting option on request • Scent-free studio",
-                    WhatToExpect = "A focused, supportive class with individual attention and clear cues.",
-                    WhatToBring = "Grip socks (available to purchase) • Water bottle",
-                    AccentColor = "#B87D5C"
-                },
-                new ClassType
-                {
-                    Name = "Restorative Yoga",
-                    Slug = "restorative-yoga",
-                    Description = "Supported, long-held poses using props. Deep rest for body and nervous system.",
-                    DurationMinutes = 75,
-                    DefaultCapacity = 14,
-                    Level = "All Levels",
-                    Modalities = "Yoga",
-                    AccessFeatures = "Fully prop-supported • Chair option • Low sensory (no music) • Quiet entry/exit welcome",
-                    WhatToExpect = "You will be guided into deeply restful positions and encouraged to let go.",
-                    WhatToBring = "Nothing — we provide everything",
-                    AccentColor = "#8B9A7D"
-                }
+                new ClassType { Name = "Reformer Pilates", Slug = "reformer-pilates", Description = "Intelligent, precise work on the reformer. Build deep core strength and move with ease.", DurationMinutes = 55, DefaultCapacity = 10, Level = "All Levels", Modalities = "Pilates", AccessFeatures = "Chair options available • Prenatal modifications • Low lighting option • Scent-free", WhatToExpect = "Focused, supportive class with individual attention.", WhatToBring = "Grip socks • Water", AccentColor = "#B87D5C" },
+                new ClassType { Name = "Restorative Yoga", Slug = "restorative-yoga", Description = "Supported, long-held poses using props. Deep rest for body and nervous system.", DurationMinutes = 75, DefaultCapacity = 14, Level = "All Levels", Modalities = "Yoga", AccessFeatures = "Fully prop-supported • Chair option • Low sensory available • Quiet entry", WhatToExpect = "Guided into deeply restful positions.", WhatToBring = "Nothing — everything provided", AccentColor = "#8B9A7D" },
+                new ClassType { Name = "Mat Pilates Flow", Slug = "mat-pilates-flow", Description = "Grounded, intelligent movement on the mat that translates directly to daily life.", DurationMinutes = 50, DefaultCapacity = 16, Level = "All Levels", Modalities = "Pilates", AccessFeatures = "Beginner friendly • Chair modifications • Prenatal safe", WhatToExpect = "Dynamic but accessible flow.", WhatToBring = "Yoga mat (provided)", AccentColor = "#C9A87C" },
+                new ClassType { Name = "Gentle Vinyasa", Slug = "gentle-vinyasa", Description = "Slow, mindful yoga with lots of options and breath focus.", DurationMinutes = 60, DefaultCapacity = 18, Level = "Beginner", Modalities = "Yoga", AccessFeatures = "Very beginner friendly • Chair option • Low sensory", WhatToExpect = "Calm, accessible movement.", WhatToBring = "Nothing needed", AccentColor = "#8B9A7D" }
             );
             await _db.SaveChangesAsync();
         }

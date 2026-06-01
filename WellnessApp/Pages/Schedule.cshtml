@@ -20,11 +20,14 @@
         </div>
     </div>
 
-    <!-- Filters (simplified for initial build) -->
+    <!-- Simple Filters -->
     <div class="lumina-card p-6 mb-8">
-        <p class="text-sm text-lumina-charcoal/70">
-            Dynamic filters coming in the next update. For now, enjoy the beautiful class cards with real seeded data from our Rondebosch studio.
-        </p>
+        <div class="flex flex-wrap gap-2 text-sm">
+            <a asp-page="/Schedule" class="px-4 py-1.5 rounded-full bg-lumina-sage-light hover:bg-lumina-sage hover:text-white transition">All Classes</a>
+            <a asp-page="/Schedule" asp-route-modality="Pilates" class="px-4 py-1.5 rounded-full bg-lumina-sage-light hover:bg-lumina-sage hover:text-white transition">Pilates</a>
+            <a asp-page="/Schedule" asp-route-modality="Yoga" class="px-4 py-1.5 rounded-full bg-lumina-sage-light hover:bg-lumina-sage hover:text-white transition">Yoga</a>
+            <a asp-page="/Schedule" asp-route-level="Beginner" class="px-4 py-1.5 rounded-full bg-lumina-sage-light hover:bg-lumina-sage hover:text-white transition">Beginner Friendly</a>
+        </div>
     </div>
 
     <!-- Schedule Grid -->
