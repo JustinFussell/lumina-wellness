@@ -4,51 +4,55 @@
     ViewData["Title"] = "Home";
 }
 
-<!-- Hero - Maximum Wow -->
+<!-- Hero — Really Modern 2026 Composition -->
 <section class="relative min-h-[100dvh] flex items-center justify-center overflow-hidden">
-    <!-- Background Image with Overlay (light parallax on scroll) -->
+    <!-- Background + modern subtle gradient layers -->
     <div class="absolute inset-0">
-        <img src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?q=80&w=2000" 
+        <img src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?q=80&w=2200" 
              alt="Serene woman practicing mindful movement in soft natural light"
              class="w-full h-full object-cover parallax-bg">
-        <div class="absolute inset-0 bg-gradient-to-b from-lumina-charcoal/40 via-lumina-charcoal/30 to-lumina-cream/95"></div>
+        <div class="absolute inset-0 bg-[radial-gradient(at_50%_30%,rgba(47,44,39,0.28)_0%,transparent_55%)]"></div>
+        <div class="absolute inset-0 bg-gradient-to-b from-lumina-charcoal/35 via-lumina-charcoal/32 to-lumina-cream/96"></div>
     </div>
     
-    <div class="relative max-w-5xl mx-auto px-6 text-center pt-20 pb-16">
-        <div class="inline-flex items-center gap-x-2 rounded-full bg-white/90 backdrop-blur-md px-5 py-1.5 text-xs tracking-[3px] text-lumina-sage mb-8 border border-white/60 shadow-sm">
+    <div class="relative max-w-5xl mx-auto px-6 text-center pt-16 pb-20">
+        <!-- Modern location badge -->
+        <div class="inline-flex items-center gap-x-2.5 rounded-full bg-white/85 backdrop-blur-xl px-6 py-2 text-[10px] tracking-[3.5px] text-lumina-sage mb-9 border border-white/70 shadow-sm">
+            <span class="inline-block w-1 h-1 rounded-full bg-lumina-gold"></span>
             RONDEBOSCH • CAPE TOWN
         </div>
         
-        <h1 class="text-7xl md:text-[92px] font-light tracking-[-4.5px] leading-[0.88] text-white mb-8 drop-shadow-sm">
+        <h1 class="text-[68px] md:text-[96px] font-light tracking-[-5.2px] leading-[0.86] text-white mb-7">
             Move with<br>presence.<br>
-            <span class="text-lumina-cream">Find your light.</span>
+            <span class="text-lumina-cream tracking-[-4.8px]">Find your light.</span>
         </h1>
         
-        <p class="max-w-lg mx-auto text-2xl text-white/90 mb-12 font-light tracking-tight">
-            A sanctuary for Pilates, yoga, and mindful movement — where clinical care and soulful practice meet.
+        <p class="max-w-md mx-auto text-[21px] text-white/90 mb-11 font-light tracking-[-0.2px]">
+            A sanctuary where clinical care and soulful movement exist in the same breath.
         </p>
 
-        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <!-- Modern primary action cluster -->
+        <div class="flex flex-col sm:flex-row gap-3 justify-center">
             <a asp-page="/Schedule" 
-               class="group inline-flex items-center justify-center gap-x-3 bg-white text-lumina-charcoal font-medium text-lg px-10 py-4 rounded-3xl shadow-xl hover:shadow-2xl transition-all active:scale-[0.985]">
+               class="group inline-flex items-center justify-center gap-x-2.5 bg-white text-lumina-charcoal font-medium text-[15px] px-9 py-[17px] rounded-3xl shadow-xl hover:shadow-2xl active:scale-[0.985] transition-all">
                 Explore the schedule
-                <span class="group-hover:translate-x-0.5 transition">→</span>
+                <span class="text-lg leading-none group-hover:translate-x-0.5 transition">→</span>
             </a>
             <a asp-page="/Account/Register" 
-               class="inline-flex items-center justify-center text-lg px-9 py-4 rounded-3xl border border-white/70 text-white hover:bg-white hover:text-lumina-charcoal backdrop-blur transition-all font-medium">
+               class="inline-flex items-center justify-center text-[15px] px-8 py-[17px] rounded-3xl border border-white/75 text-white hover:bg-white/10 hover:text-white backdrop-blur-lg transition-all font-medium tracking-[-0.1px]">
                 Begin your practice
             </a>
         </div>
         
-        <div class="mt-10 flex justify-center gap-x-8 text-xs tracking-[2px] text-white/70">
-            <div>IN THE SAME BUILDING AS PHYSIOTHERAPY</div>
+        <div class="mt-14 text-[10px] tracking-[3px] text-white/55 font-medium">
+            IN THE SAME BUILDING AS PHYSIOTHERAPY
         </div>
     </div>
     
-    <!-- Scroll Indicator -->
-    <div class="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center text-white/60 text-xs tracking-[3px]">
-        <div>SCROLL TO BEGIN</div>
-        <div class="h-px w-6 bg-white/40 mt-2"></div>
+    <!-- Elegant modern scroll prompt -->
+    <div class="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center text-white/40 text-[10px] tracking-[4px]">
+        SCROLL TO BEGIN YOUR JOURNEY
+        <div class="h-px w-5 bg-white/30 mt-3"></div>
     </div>
 </section>
 

@@ -21,28 +21,25 @@
         </div>
     </div>
 
-<!-- Beautiful Filters + Live Search (maximum interactivity) -->
+<!-- Really Modern 2026 Filters — clean chip / segmented control -->
     <div class="mb-8">
-        <div class="flex flex-col md:flex-row gap-3">
-            <div class="flex-1">
+        <div class="flex flex-col md:flex-row gap-3 items-center">
+            <div class="flex-1 w-full">
                 <input type="text" 
                        id="schedule-search"
                        oninput="filterScheduleCards()"
-                       placeholder="Search classes, teachers, or modality..."
-                       class="w-full px-5 py-3.5 rounded-3xl border border-lumina-sage-light bg-white text-sm placeholder:text-lumina-charcoal/40 focus:border-lumina-sage focus:ring-1 focus:ring-lumina-sage/30 transition-all">
+                       placeholder="Search classes or teachers..."
+                       class="w-full px-5 py-3.5 rounded-3xl border border-lumina-sage-light/70 bg-white text-sm placeholder:text-lumina-charcoal/35 focus:border-lumina-sage focus:outline-none transition-all">
             </div>
-            <div class="flex flex-wrap gap-2" id="schedule-filters">
+            <div class="flex flex-wrap gap-1.5 w-full md:w-auto" id="schedule-filters">
                 <button onclick="setScheduleFilter(this, '')" 
-                        class="active-filter px-6 py-2.5 text-sm rounded-3xl transition-all bg-lumina-sage text-white">All</button>
-                
+                        class="active-filter px-5 py-2 text-sm font-medium rounded-3xl transition-all bg-lumina-sage text-white shadow-sm">All</button>
                 <button onclick="setScheduleFilter(this, 'Pilates')" 
-                        class="px-6 py-2.5 text-sm rounded-3xl bg-lumina-sage-light hover:bg-lumina-sage-light/80 text-lumina-charcoal transition-all">Pilates</button>
-                
+                        class="px-5 py-2 text-sm font-medium rounded-3xl bg-white border border-lumina-sage-light hover:bg-lumina-sage-light/70 text-lumina-charcoal transition-all">Pilates</button>
                 <button onclick="setScheduleFilter(this, 'Yoga')" 
-                        class="px-6 py-2.5 text-sm rounded-3xl bg-lumina-sage-light hover:bg-lumina-sage-light/80 text-lumina-charcoal transition-all">Yoga</button>
-                
+                        class="px-5 py-2 text-sm font-medium rounded-3xl bg-white border border-lumina-sage-light hover:bg-lumina-sage-light/70 text-lumina-charcoal transition-all">Yoga</button>
                 <button onclick="setScheduleFilter(this, 'Beginner')" 
-                        class="px-6 py-2.5 text-sm rounded-3xl bg-lumina-sage-light hover:bg-lumina-sage-light/80 text-lumina-charcoal transition-all">Beginner Friendly</button>
+                        class="px-5 py-2 text-sm font-medium rounded-3xl bg-white border border-lumina-sage-light hover:bg-lumina-sage-light/70 text-lumina-charcoal transition-all">Beginner</button>
             </div>
         </div>
     </div>
