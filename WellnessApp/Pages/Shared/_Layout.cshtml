@@ -171,18 +171,19 @@
 
       /* === MODERN HEADER (crisp scroll behavior already in JS) === */
       .lumina-nav {
-        background: rgba(247, 244, 239, 0.84);
-        backdrop-filter: blur(18px);
-        border-bottom: 1px solid rgba(139, 154, 125, 0.1);
+        background: rgba(247, 244, 239, 0.95);
+        backdrop-filter: blur(20px);
+        border-bottom: 1px solid rgba(139, 154, 125, 0.15);
         transition: all 0.38s var(--ease-smooth);
       }
       .lumina-nav.scrolled {
-        background: rgba(247, 244, 239, 0.97);
+        background: rgba(247, 244, 239, 0.98);
         backdrop-filter: blur(28px);
         box-shadow: 0 10px 28px -14px rgb(47 44 39 / 0.09);
-        border-bottom-color: rgba(139, 154, 125, 0.16);
+        border-bottom-color: rgba(139, 154, 125, 0.2);
       }
-      .lumina-nav.scrolled .h-16 { height: 3.45rem; }
+      .lumina-nav.scrolled .h-16,
+      .lumina-nav.scrolled .md\:h-20 { height: 3.75rem; }
 
       /* Brand title already elevated from previous pass — keep strong */
 
@@ -270,33 +271,33 @@
 
     <header id="main-header" class="lumina-nav sticky top-0 z-50 transition-all duration-300">
         <nav class="max-w-7xl mx-auto px-6">
-            <div class="flex h-16 items-center justify-between transition-all duration-300">
-                <!-- Premium Brand Title - stands out more, crisp & elegant -->
-                <a asp-page="/Index" class="flex items-center gap-x-3.5 group">
-                    <div class="w-10 h-10 rounded-2xl bg-lumina-sage flex items-center justify-center ring-1 ring-white/30 shadow-sm group-hover:scale-[1.03] transition-transform">
-                        <span class="text-white text-2xl font-light tracking-[-2px]">L</span>
+            <div class="flex h-16 md:h-20 items-center justify-between transition-all duration-300">
+                <!-- Premium Brand Title - much larger and prominent -->
+                <a asp-page="/Index" class="flex items-center gap-x-4 group">
+                    <div class="w-12 h-12 md:w-14 md:h-14 rounded-2xl bg-lumina-sage flex items-center justify-center ring-1 ring-white/40 shadow-sm group-hover:scale-[1.04] transition-transform">
+                        <span class="text-white text-[28px] md:text-[32px] font-light tracking-[-2.5px]">L</span>
                     </div>
                     <div class="flex flex-col">
-                        <div class="font-semibold text-[27px] md:text-[29px] tracking-[-1.25px] text-lumina-charcoal group-hover:text-lumina-sage transition-colors leading-none">Lumina</div>
-                        <div class="flex items-center gap-x-1.5 -mt-0.5">
-                            <div class="h-px w-3 bg-lumina-gold/60"></div>
-                            <div class="text-[9.5px] text-lumina-sage tracking-[2.2px] font-medium">RONDEBOSCH</div>
+                        <div class="font-semibold text-[32px] md:text-[38px] tracking-[-1.6px] text-lumina-charcoal group-hover:text-lumina-sage transition-colors leading-none">Lumina</div>
+                        <div class="flex items-center gap-x-2 -mt-1">
+                            <div class="h-px w-4 bg-lumina-gold"></div>
+                            <div class="text-[12px] md:text-[13px] text-lumina-sage tracking-[2.5px] font-semibold">RONDEBOSCH</div>
                         </div>
                     </div>
                 </a>
 
                 <!-- Desktop Nav — Modern refined pill cluster (active state enhanced in JS for crisp feel) -->
-                <div class="hidden md:flex items-center gap-x-1 text-sm font-medium bg-white/75 backdrop-blur-2xl rounded-3xl px-1.5 py-1 border border-lumina-sage-light/60" id="desktop-nav">
-                    <a asp-page="/Index" class="nav-link px-4 py-1.5 rounded-2xl hover:bg-white/80 transition-colors text-lumina-charcoal" data-page="index">Home</a>
-                    <a asp-page="/TheSpace" class="nav-link px-4 py-1.5 rounded-2xl hover:bg-white/80 transition-colors text-lumina-charcoal" data-page="thespace">The Space</a>
-                    <a asp-page="/Teachers" class="nav-link px-4 py-1.5 rounded-2xl hover:bg-white/80 transition-colors text-lumina-charcoal" data-page="teachers">Teachers</a>
-                    <a asp-page="/Schedule" class="nav-link px-4 py-1.5 rounded-2xl hover:bg-white/80 transition-colors text-lumina-charcoal" data-page="schedule">Schedule</a>
-                    <a asp-page="/Pricing" class="nav-link px-4 py-1.5 rounded-2xl hover:bg-white/80 transition-colors text-lumina-charcoal" data-page="pricing">Pricing</a>
+                <div class="hidden md:flex items-center gap-x-0.5 text-sm font-semibold bg-white/90 backdrop-blur-2xl rounded-3xl px-2 py-1.5 border border-lumina-sage-light" id="desktop-nav">
+                    <a asp-page="/Index" class="nav-link px-4 py-1.5 rounded-2xl hover:bg-white transition-colors text-lumina-charcoal" data-page="index">Home</a>
+                    <a asp-page="/TheSpace" class="nav-link px-4 py-1.5 rounded-2xl hover:bg-white transition-colors text-lumina-charcoal" data-page="thespace">The Space</a>
+                    <a asp-page="/Teachers" class="nav-link px-4 py-1.5 rounded-2xl hover:bg-white transition-colors text-lumina-charcoal" data-page="teachers">Teachers</a>
+                    <a asp-page="/Schedule" class="nav-link px-4 py-1.5 rounded-2xl hover:bg-white transition-colors text-lumina-charcoal" data-page="schedule">Schedule</a>
+                    <a asp-page="/Pricing" class="nav-link px-4 py-1.5 rounded-2xl hover:bg-white transition-colors text-lumina-charcoal" data-page="pricing">Pricing</a>
                     
-                    <div class="w-px h-4 bg-lumina-sage-light/60 mx-1"></div>
+                    <div class="w-px h-5 bg-lumina-sage-light mx-1"></div>
                     
-                    <a asp-page="/Account/Login" class="px-4 py-1.5 rounded-2xl hover:bg-white/80 text-xs tracking-widest transition-colors text-lumina-charcoal">Log in</a>
-                    <a asp-page="/Account/Register" class="lumina-btn-primary px-5 py-1.5 text-xs tracking-widest">Begin</a>
+                    <a asp-page="/Account/Login" class="px-4 py-1.5 rounded-2xl hover:bg-white text-xs tracking-widest transition-colors text-lumina-charcoal">Log in</a>
+                    <a asp-page="/Account/Register" class="lumina-btn-primary px-6 py-1.5 text-xs tracking-widest">Begin</a>
                 </div>
 
                 <!-- Mobile: simple CTA -->
