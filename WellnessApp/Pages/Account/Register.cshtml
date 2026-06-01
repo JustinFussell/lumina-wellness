@@ -4,43 +4,46 @@
     ViewData["Title"] = "Join Lumina";
 }
 
-<div class="max-w-md mx-auto px-6 py-12">
-    <h1 class="section-title text-4xl text-center tracking-tight">Begin your practice</h1>
-    <p class="text-center mt-3 text-lumina-charcoal/70">Create your account and tell us a little about how you'd like to move.</p>
+<div class="max-w-md mx-auto px-6 py-16">
+    <div class="text-center mb-10">
+        <div class="text-xs tracking-[3px] text-lumina-sage">JOIN LUMINA</div>
+        <h1 class="section-title text-5xl tracking-tight mt-3">Begin your practice</h1>
+        <p class="mt-4 text-lumina-charcoal/70 max-w-xs mx-auto">Create your account and tell us how you want to move. This helps us support you beautifully from the very beginning.</p>
+    </div>
 
-    <form method="post" class="mt-8 space-y-6">
+    <form method="post" class="space-y-5">
         <div>
             <label class="block text-sm mb-1.5">Full Name</label>
             <input asp-for="Input.FullName" class="w-full rounded-2xl border border-lumina-sage-light px-4 py-3" />
         </div>
 
         <div class="grid grid-cols-2 gap-4">
-            <div>
-                <label class="block text-sm mb-1.5">Email</label>
-                <input asp-for="Input.Email" class="w-full rounded-2xl border border-lumina-sage-light px-4 py-3" />
+            <div class="space-y-1.5">
+                <label class="text-sm text-lumina-charcoal/80">Email</label>
+                <input asp-for="Input.Email" type="email" class="w-full rounded-2xl border border-lumina-sage-light bg-white px-5 py-3.5 text-lg focus:border-lumina-sage transition" />
             </div>
-            <div>
-                <label class="block text-sm mb-1.5">Pronouns (optional)</label>
-                <input asp-for="Input.Pronouns" class="w-full rounded-2xl border border-lumina-sage-light px-4 py-3" placeholder="she/her, they/them..." />
+            <div class="space-y-1.5">
+                <label class="text-sm text-lumina-charcoal/80">Pronouns <span class="text-xs text-lumina-charcoal/50">(optional)</span></label>
+                <input asp-for="Input.Pronouns" class="w-full rounded-2xl border border-lumina-sage-light bg-white px-5 py-3.5 text-lg focus:border-lumina-sage transition" placeholder="she/her, they/them..." />
             </div>
         </div>
 
-        <div>
-            <label class="block text-sm mb-1.5">Password</label>
-            <input asp-for="Input.Password" type="password" class="w-full rounded-2xl border border-lumina-sage-light px-4 py-3" />
+        <div class="space-y-1.5">
+            <label class="text-sm text-lumina-charcoal/80">Password</label>
+            <input asp-for="Input.Password" type="password" class="w-full rounded-2xl border border-lumina-sage-light bg-white px-5 py-3.5 text-lg focus:border-lumina-sage transition" />
         </div>
 
-        <div>
-            <label class="block text-sm mb-1.5">What brings you to Lumina? (optional)</label>
-            <textarea asp-for="Input.Goals" rows="3" class="w-full rounded-3xl border border-lumina-sage-light px-4 py-3" placeholder="Rehab from an injury, stress relief, building strength, trying something new..."></textarea>
+        <div class="space-y-1.5">
+            <label class="text-sm text-lumina-charcoal/80">What brings you here? <span class="text-xs text-lumina-charcoal/50">(optional)</span></label>
+            <textarea asp-for="Input.Goals" rows="2" class="w-full rounded-3xl border border-lumina-sage-light bg-white px-5 py-3.5 focus:border-lumina-sage transition" placeholder="Rehab, strength, nervous system reset..."></textarea>
         </div>
 
-        <div>
-            <label class="block text-sm mb-1.5">Anything we should know to support your practice? (injuries, accessibility needs, preferences)</label>
-            <textarea asp-for="Input.AccessibilityNeeds" rows="3" class="w-full rounded-3xl border border-lumina-sage-light px-4 py-3" placeholder="This stays private and helps our teachers support you better."></textarea>
+        <div class="space-y-1.5">
+            <label class="text-sm text-lumina-charcoal/80">Anything we should know to support you? <span class="text-xs text-lumina-charcoal/50">(optional)</span></label>
+            <textarea asp-for="Input.AccessibilityNeeds" rows="2" class="w-full rounded-3xl border border-lumina-sage-light bg-white px-5 py-3.5 focus:border-lumina-sage transition" placeholder="Injuries, preferences, neurodivergence..."></textarea>
         </div>
 
-        <button type="submit" class="w-full lumina-btn-primary py-3 text-lg">Create my account</button>
+        <button type="submit" class="w-full btn-lumina btn-lumina-primary py-4 text-lg mt-2">Create my account</button>
 
         <p class="text-center text-sm text-lumina-charcoal/60">
             Already have an account? <a asp-page="/Account/Login" class="text-lumina-sage">Log in</a>
