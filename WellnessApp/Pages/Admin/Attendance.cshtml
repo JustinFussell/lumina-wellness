@@ -6,35 +6,45 @@
 }
 
 <div class="max-w-4xl mx-auto px-6 py-8">
-    <h1 class="section-title text-3xl mb-2">Attendance</h1>
-    <p class="mb-6 text-lumina-charcoal/70">@Model.ScheduledClass?.ClassType.Name with @Model.ScheduledClass?.Instructor.Name • @Model.ScheduledClass?.StartUtc.ToString("f")</p>
+    <div class="mb-8">
+        <div class="text-xs uppercase tracking-[3px] text-lumina-sage">ATTENDANCE</div>
+        <h1 class="section-title text-4xl tracking-tight">@Model.ScheduledClass?.ClassType.Name</h1>
+        <p class="text-lumina-charcoal/70">@Model.ScheduledClass?.Instructor.Name • @Model.ScheduledClass?.StartUtc.ToString("f")</p>
+    </div>
 
     <form method="post">
-        <div class="lumina-card p-6">
+        <div class="lumina-card p-2">
             @if (Model.Bookings.Any())
             {
-                <div class="space-y-4">
+                <div class="divide-y">
                     @foreach (var booking in Model.Bookings)
                     {
-                        <div class="flex items-center justify-between border-b pb-3 last:border-b-0 last:pb-0">
-                            <div>
-                                <div class="font-medium">@booking.User.FullName</div>
-                                <div class="text-xs text-lumina-charcoal/60">@booking.User.Email</div>
+                        <div class="flex items-center justify-between px-5 py-4">
+                            <div class="flex items-center gap-x-4">
+                                <div class="w-9 h-9 rounded-2xl bg-lumina-sage-light flex-shrink-0"></div>
+                                <div>
+                                    <div class="font-medium">@booking.User.FullName</div>
+                                    <div class="text-xs text-lumina-charcoal/60">@booking.User.Email</div>
+                                </div>
                             </div>
-                            <div class="flex items-center gap-3">
-                                <label class="flex items-center gap-2 text-sm">
-                                    <input type="checkbox" name="attendedIds" value="@booking.Id" 
-                                           checked="@(booking.Status == BookingStatus.Attended)" />
-                                    Attended
-                                </label>
-                            </div>
+                            
+                            <label class="relative flex items-center cursor-pointer">
+                                <input type="checkbox" name="attendedIds" value="@booking.Id" 
+                                       checked="@(booking.Status == BookingStatus.Attended)"
+                                       class="peer sr-only" />
+                                <div class="w-11 h-6 bg-lumina-sage-light rounded-full peer peer-checked:bg-lumina-sage transition"></div>
+                                <div class="absolute left-1 top-1 w-4 h-4 bg-white rounded-full shadow transition peer-checked:translate-x-5"></div>
+                                <span class="ml-3 text-sm text-lumina-charcoal/80">Attended</span>
+                            </label>
                         </div>
                     }
                 </div>
             }
             else
             {
-                <p>No bookings for this class.</p>
+                <div class="p-8 text-center text-lumina-charcoal/60">
+                    No bookings for this class yet.
+                </div>
             }
         </div>
 
