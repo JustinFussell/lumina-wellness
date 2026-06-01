@@ -291,35 +291,35 @@
         @RenderBody()
     </main>
 
-    <!-- Member Mobile Bottom Navigation - Premium Feel -->
+    <!-- Modern Mobile Bottom Nav — clean app-like 2026 treatment -->
     @if (User.Identity?.IsAuthenticated == true)
     {
-        <nav class="md:hidden fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur-xl border-t border-lumina-sage-light z-50 shadow-lg">
-            <div class="flex justify-around items-center py-2 px-1 text-[10px] tracking-widest">
-                <a asp-page="/App/Dashboard" class="flex flex-col items-center px-4 py-1 text-lumina-charcoal/70 hover:text-lumina-sage active:text-lumina-sage transition-colors">
-                    <span class="text-xl mb-0.5">🏠</span>
-                    <span class="font-medium">Home</span>
+        <nav class="md:hidden fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur-2xl border-t border-lumina-sage-light/70 z-50">
+            <div class="flex justify-around items-center py-1.5 px-1 text-[10px] tracking-widest">
+                <a asp-page="/App/Dashboard" class="flex flex-col items-center px-3 py-1 text-lumina-charcoal/65 active:text-lumina-sage transition-colors">
+                    <span class="text-lg mb-px">⌂</span>
+                    <span class="font-medium text-[9.5px]">Home</span>
                 </a>
-                <a asp-page="/Schedule" class="flex flex-col items-center px-4 py-1 text-lumina-charcoal/70 hover:text-lumina-sage active:text-lumina-sage transition-colors">
-                    <span class="text-xl mb-0.5">📅</span>
-                    <span class="font-medium">Schedule</span>
+                <a asp-page="/Schedule" class="flex flex-col items-center px-3 py-1 text-lumina-charcoal/65 active:text-lumina-sage transition-colors">
+                    <span class="text-lg mb-px">◷</span>
+                    <span class="font-medium text-[9.5px]">Schedule</span>
                 </a>
-                <a asp-page="/App/Dashboard" class="flex flex-col items-center px-4 py-1 text-lumina-charcoal/70 hover:text-lumina-sage active:text-lumina-sage transition-colors">
-                    <span class="text-xl mb-0.5">📈</span>
-                    <span class="font-medium">Practice</span>
+                <a asp-page="/App/Dashboard" class="flex flex-col items-center px-3 py-1 text-lumina-charcoal/65 active:text-lumina-sage transition-colors">
+                    <span class="text-lg mb-px">◉</span>
+                    <span class="font-medium text-[9.5px]">Practice</span>
                 </a>
-                <a asp-page="/Account/Login" class="flex flex-col items-center px-4 py-1 text-lumina-charcoal/70 hover:text-lumina-sage active:text-lumina-sage transition-colors">
-                    <span class="text-xl mb-0.5">👤</span>
-                    <span class="font-medium">Me</span>
+                <a asp-page="/Account/Login" class="flex flex-col items-center px-3 py-1 text-lumina-charcoal/65 active:text-lumina-sage transition-colors">
+                    <span class="text-lg mb-px">◐</span>
+                    <span class="font-medium text-[9.5px]">Me</span>
                 </a>
             </div>
         </nav>
         
-        <!-- Floating Book Button for extra delight on mobile -->
-        <div class="md:hidden fixed bottom-20 right-5 z-50">
+        <!-- Floating modern book action -->
+        <div class="md:hidden fixed bottom-[4.25rem] right-5 z-50">
             <a asp-page="/Schedule" 
-               class="flex items-center justify-center w-14 h-14 bg-lumina-terracotta text-white rounded-2xl shadow-2xl active:scale-95 transition-all">
-                <span class="text-2xl">＋</span>
+               class="flex items-center justify-center w-12 h-12 bg-lumina-terracotta text-white rounded-2xl shadow-xl active:scale-[0.94] transition-all text-xl leading-none">
+                +
             </a>
         </div>
     }
