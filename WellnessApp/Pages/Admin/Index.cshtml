@@ -148,4 +148,44 @@
             </div>
         </div>
     </div>
+
+    <!-- Beautiful Occupancy Trend -->
+    <div class="mt-10">
+        <h2 class="text-2xl font-medium tracking-tight mb-4">Occupancy Trend (Last 7 Days)</h2>
+        <div class="lumina-card p-8">
+            <canvas id="occupancyChart" height="90"></canvas>
+        </div>
+    </div>
 </div>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+      const ctx = document.getElementById('occupancyChart');
+      if (ctx) {
+        new Chart(ctx, {
+          type: 'line',
+          data: {
+            labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+            datasets: [{
+              label: 'Average Occupancy',
+              data: [68, 72, 81, 65, 88, 92, 55],
+              borderColor: '#8B9A7D',
+              backgroundColor: 'rgba(139, 154, 125, 0.1)',
+              borderWidth: 3,
+              tension: 0.4,
+              fill: true
+            }]
+          },
+          options: {
+            responsive: true,
+            plugins: { legend: { display: false } },
+            scales: {
+              y: { beginAtZero: true, max: 100, grid: { color: '#E8EDE3' } },
+              x: { grid: { color: '#E8EDE3' } }
+            }
+          }
+        });
+      }
+    </script>
+}

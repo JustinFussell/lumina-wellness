@@ -1,0 +1,62 @@
+@page
+@{
+    ViewData["Title"] = "The Space";
+}
+
+<div class="max-w-5xl mx-auto">
+    <!-- Hero -->
+    <div class="relative h-[70vh] flex items-end">
+        <img src="https://images.unsplash.com/photo-1518611012118-696072aa579a?q=80&w=2000" class="absolute inset-0 w-full h-full object-cover" alt="Lumina studio space in Rondebosch with soft natural light and wooden floors">
+        <div class="absolute inset-0 bg-gradient-to-b from-black/20 via-black/40 to-black/70"></div>
+        <div class="relative px-6 pb-16 max-w-2xl text-white">
+            <div class="text-xs tracking-[3px] mb-2 opacity-80">OUR HOME IN RONDEBOSCH</div>
+            <h1 class="text-7xl font-light tracking-[-2px]">The Space</h1>
+            <p class="mt-4 text-2xl font-light">A light-filled sanctuary designed for presence, healing, and community.</p>
+        </div>
+    </div>
+
+    <div class="px-6 py-16 grid md:grid-cols-2 gap-x-16 gap-y-12">
+        <div>
+            <h2 class="text-4xl tracking-tight font-light">Designed with intention</h2>
+            <div class="mt-6 text-lg text-lumina-charcoal/80 space-y-4">
+                <p>Every detail in our studio was chosen to help you arrive fully. Natural light pours in from large windows overlooking the oak trees of Rondebosch. The floors are warm reclaimed wood. The air smells faintly of eucalyptus and fresh linen.</p>
+                <p>We keep the space deliberately minimal so your practice can be the focus. Props are beautiful and abundant. The energy is calm, grounded, and quietly powerful.</p>
+            </div>
+        </div>
+
+        <div class="space-y-8">
+            <div class="flex gap-6">
+                <div class="text-4xl">🌿</div>
+                <div>
+                    <div class="font-medium">Biophilic design</div>
+                    <div class="text-sm text-lumina-charcoal/70 mt-1">Living plants, natural textures, and connection to the garden outside.</div>
+                </div>
+            </div>
+            <div class="flex gap-6">
+                <div class="text-4xl">☀️</div>
+                <div>
+                    <div class="font-medium">Abundant natural light</div>
+                    <div class="text-sm text-lumina-charcoal/70 mt-1">Soft morning light for Reformer, golden afternoon light for Restorative.</div>
+                </div>
+            </div>
+            <div class="flex gap-6">
+                <div class="text-4xl">🤝</div>
+                <div>
+                    <div class="font-medium">Shared with care</div>
+                    <div class="text-sm text-lumina-charcoal/70 mt-1">We share the building with excellent physiotherapists. Many of our students come through referral.</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Image Gallery -->
+    <div class="px-6 pb-20">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+            <img src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?q=80&w=800" class="rounded-3xl aspect-[4/3] object-cover" alt="Restorative setup">
+            <img src="https://images.unsplash.com/photo-1518611012118-696072aa579a?q=80&w=800" class="rounded-3xl aspect-[4/3] object-cover" alt="Reformer studio">
+            <img src="https://images.unsplash.com/photo-1506126613408-eca07ce68773?q=80&w=800" class="rounded-3xl aspect-[4/3] object-cover" alt="Morning light in the studio">
+            <img src="https://images.unsplash.com/photo-1518611012118-696072aa579a?q=80&w=800" class="rounded-3xl aspect-[4/3] object-cover" alt="Community practicing together">
+        </div>
+        <div class="text-center mt-4 text-xs text-lumina-charcoal/50 tracking-widest">A space that holds you as you move.</div>
+    </div>
+</div>
