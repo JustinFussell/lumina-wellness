@@ -1,0 +1,109 @@
+@page
+@model Lumina.Pages.Admin.IndexModel
+@{
+    ViewData["Title"] = "Studio Dashboard";
+}
+
+<div class="max-w-7xl mx-auto px-6 py-8">
+    <div class="flex items-center justify-between mb-8">
+        <div>
+            <h1 class="section-title text-4xl">Studio Dashboard</h1>
+            <p class="text-lumina-charcoal/70">Lumina Rondebosch • Owner View</p>
+        </div>
+        <div class="text-sm text-lumina-sage">Last updated: @DateTime.Now.ToString("HH:mm")</div>
+    </div>
+
+    <!-- KPIs -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-10">
+        <div class="lumina-card p-6">
+            <div class="text-xs uppercase tracking-widest text-lumina-sage">Today's Classes</div>
+            <div class="text-5xl font-light mt-3">@Model.TodaysClasses</div>
+            <div class="text-sm text-lumina-charcoal/60 mt-1">@Model.TodaysSpotsLeft total spots left</div>
+        </div>
+        <div class="lumina-card p-6">
+            <div class="text-xs uppercase tracking-widest text-lumina-sage">Occupancy Today</div>
+            <div class="text-5xl font-light mt-3">@Model.TodayOccupancy%</div>
+            <div class="text-sm text-lumina-charcoal/60 mt-1">across all classes</div>
+        </div>
+        <div class="lumina-card p-6">
+            <div class="text-xs uppercase tracking-widest text-lumina-sage">Active Members</div>
+            <div class="text-5xl font-light mt-3">@Model.ActiveMembers</div>
+            <div class="text-sm text-lumina-charcoal/60 mt-1">with credits or recent activity</div>
+        </div>
+        <div class="lumina-card p-6">
+            <div class="text-xs uppercase tracking-widest text-lumina-sage">Credits Issued (30d)</div>
+            <div class="text-5xl font-light mt-3">@Model.CreditsIssued30d</div>
+        </div>
+    </div>
+
+    <!-- Today's Classes -->
+    <div class="mb-10">
+        <h2 class="text-2xl font-medium mb-4">Today’s Classes</h2>
+        <div class="lumina-card overflow-hidden">
+            <table class="w-full text-sm">
+                <thead class="bg-lumina-sage-light/50">
+                    <tr>
+                        <th class="text-left p-4">Time</th>
+                        <th class="text-left p-4">Class</th>
+                        <th class="text-left p-4">Instructor</th>
+                        <th class="text-center p-4">Booked / Capacity</th>
+                        <th class="text-right p-4">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var cls in Model.TodaysScheduledClasses)
+                    {
+                        <tr class="border-t">
+                            <td class="p-4 font-medium">@cls.StartUtc.ToString("HH:mm")</td>
+                            <td class="p-4">@cls.ClassType.Name</td>
+                            <td class="p-4">@cls.Instructor.Name</td>
+                            <td class="p-4 text-center">
+                                <span class="font-medium">@cls.Bookings.Count(b => b.Status != BookingStatus.Cancelled)</span>
+                                / @cls.EffectiveCapacity
+                            </td>
+                            <td class="p-4 text-right">
+                                <a asp-page="/Admin/Attendance" asp-route-id="@cls.Id" 
+                                   class="text-lumina-sage hover:underline text-sm">Take Attendance →</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-6">
+        <!-- Quick Members -->
+        <div>
+            <h2 class="text-2xl font-medium mb-4">Recent Members</h2>
+            <div class="lumina-card p-5">
+                @if (Model.RecentMembers.Any())
+                {
+                    <ul class="space-y-3 text-sm">
+                        @foreach (var m in Model.RecentMembers)
+                        {
+                            <li class="flex justify-between">
+                                <span>@m.FullName</span>
+                                <span class="text-lumina-charcoal/60">@m.Email</span>
+                            </li>
+                        }
+                    </ul>
+                }
+                else
+                {
+                    <p class="text-lumina-charcoal/60">No members yet.</p>
+                }
+            </div>
+        </div>
+
+        <!-- Quick Actions -->
+        <div>
+            <h2 class="text-2xl font-medium mb-4">Quick Actions</h2>
+            <div class="lumina-card p-5 space-y-3 text-sm">
+                <a asp-page="/Admin/Schedule" class="block hover:text-lumina-terracotta">→ Manage full schedule</a>
+                <a asp-page="/Admin/Members" class="block hover:text-lumina-terracotta">→ View all members</a>
+                <a asp-page="/Admin/Reports" class="block hover:text-lumina-terracotta">→ View reports</a>
+            </div>
+        </div>
+    </div>
+</div>

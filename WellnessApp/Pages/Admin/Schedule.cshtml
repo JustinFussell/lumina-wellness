@@ -1,0 +1,51 @@
+@page
+@model Lumina.Pages.Admin.ScheduleModel
+@{
+    ViewData["Title"] = "Manage Schedule";
+}
+
+<div class="max-w-7xl mx-auto px-6 py-8">
+    <h1 class="section-title text-3xl mb-6">Manage Schedule</h1>
+
+    <div class="lumina-card overflow-hidden">
+        <table class="w-full text-sm">
+            <thead>
+                <tr class="bg-lumina-sage-light/40">
+                    <th class="text-left p-4">Date & Time</th>
+                    <th class="text-left p-4">Class</th>
+                    <th class="text-left p-4">Instructor</th>
+                    <th class="text-center p-4">Capacity</th>
+                    <th class="text-right p-4">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var cls in Model.UpcomingClasses)
+                {
+                    <tr class="border-t">
+                        <td class="p-4">@cls.StartUtc.ToString("f")</td>
+                        <td class="p-4 font-medium">@cls.ClassType.Name</td>
+                        <td class="p-4">@cls.Instructor.Name</td>
+                        <td class="p-4 text-center">@cls.Bookings.Count / @cls.EffectiveCapacity</td>
+                        <td class="p-4 text-right">
+                            @if (!cls.IsCancelled)
+                            {
+                                <form method="post" asp-page-handler="Cancel" class="inline">
+                                    <input type="hidden" name="id" value="@cls.Id" />
+                                    <button type="submit" class="text-red-600 hover:underline text-sm">Cancel Class</button>
+                                </form>
+                            }
+                            else
+                            {
+                                <span class="text-red-500 text-sm">Cancelled</span>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <div class="mt-6 text-sm text-lumina-charcoal/60">
+        Note: Full recurring series creation coming soon.
+    </div>
+</div>
