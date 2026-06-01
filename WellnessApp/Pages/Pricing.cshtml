@@ -1,0 +1,68 @@
+@page
+@{
+    ViewData["Title"] = "Pricing";
+}
+
+<div class="max-w-5xl mx-auto px-6 py-16">
+    <div class="text-center mb-12">
+        <div class="text-xs tracking-[3px] text-lumina-sage">INVEST IN YOUR PRACTICE</div>
+        <h1 class="section-title text-6xl tracking-[-1.5px] mt-3">Simple, transparent pricing</h1>
+        <p class="mt-4 text-xl text-lumina-charcoal/70 max-w-md mx-auto">Choose the option that supports the way you want to move.</p>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-6">
+        <!-- 5 Class Pass -->
+        <div class="premium-card lumina-card p-8 flex flex-col">
+            <div>
+                <div class="text-lumina-terracotta text-sm tracking-widest">STARTER</div>
+                <div class="text-4xl font-light tracking-tight mt-3">5-Class Pass</div>
+                <div class="text-5xl font-light tracking-tighter mt-4">R950</div>
+                <div class="text-sm text-lumina-charcoal/60">Valid for 60 days</div>
+            </div>
+            <ul class="mt-8 space-y-3 text-sm flex-1">
+                <li class="flex items-start gap-x-3"><span class="text-lumina-sage mt-1">→</span> Use across any class</li>
+                <li class="flex items-start gap-x-3"><span class="text-lumina-sage mt-1">→</span> Share with a friend</li>
+                <li class="flex items-start gap-x-3"><span class="text-lumina-sage mt-1">→</span> Great for trying us out</li>
+            </ul>
+            <a asp-page="/Account/Register" class="mt-8 btn-lumina btn-lumina-primary w-full py-3">Get started</a>
+        </div>
+
+        <!-- 10 Class Pass -->
+        <div class="premium-card lumina-card p-8 flex flex-col border-2 border-lumina-sage relative">
+            <div class="absolute -top-3 right-6 bg-lumina-sage text-white text-xs px-4 py-1 rounded-full tracking-widest">MOST POPULAR</div>
+            <div>
+                <div class="text-lumina-terracotta text-sm tracking-widest">COMMITTED</div>
+                <div class="text-4xl font-light tracking-tight mt-3">10-Class Pass</div>
+                <div class="text-5xl font-light tracking-tighter mt-4">R1,750</div>
+                <div class="text-sm text-lumina-charcoal/60">Valid for 90 days</div>
+            </div>
+            <ul class="mt-8 space-y-3 text-sm flex-1">
+                <li class="flex items-start gap-x-3"><span class="text-lumina-sage mt-1">→</span> Best value per class</li>
+                <li class="flex items-start gap-x-3"><span class="text-lumina-sage mt-1">→</span> Flexible scheduling</li>
+                <li class="flex items-start gap-x-3"><span class="text-lumina-sage mt-1">→</span> Pause up to 14 days</li>
+            </ul>
+            <a asp-page="/Account/Register" class="mt-8 btn-lumina btn-lumina-primary w-full py-3">Choose this pass</a>
+        </div>
+
+        <!-- Monthly Unlimited -->
+        <div class="premium-card lumina-card p-8 flex flex-col">
+            <div>
+                <div class="text-lumina-terracotta text-sm tracking-widest">UNLIMITED</div>
+                <div class="text-4xl font-light tracking-tight mt-3">Monthly Unlimited</div>
+                <div class="text-5xl font-light tracking-tighter mt-4">R1,850</div>
+                <div class="text-sm text-lumina-charcoal/60">Billed monthly • Cancel anytime</div>
+            </div>
+            <ul class="mt-8 space-y-3 text-sm flex-1">
+                <li class="flex items-start gap-x-3"><span class="text-lumina-sage mt-1">→</span> Unlimited classes</li>
+                <li class="flex items-start gap-x-3"><span class="text-lumina-sage mt-1">→</span> Priority booking</li>
+                <li class="flex items-start gap-x-3"><span class="text-lumina-sage mt-1">→</span> Guest passes included</li>
+            </ul>
+            <a asp-page="/Account/Register" class="mt-8 btn-lumina btn-lumina-primary w-full py-3">Start unlimited</a>
+        </div>
+    </div>
+
+    <div class="text-center mt-12 text-sm text-lumina-charcoal/60">
+        All packages include access to our full schedule and the same beautiful experience.<br>
+        Gift cards and corporate rates available — just reach out.
+    </div>
+</div>
