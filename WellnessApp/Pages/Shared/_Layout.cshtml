@@ -102,6 +102,16 @@
     <script src="https://unpkg.com/alpinejs@3.14.1/dist/cdn.min.js" defer></script>
     
     <script src="~/js/site.js" asp-append-version="true"></script>
+
+    <!-- PWA Service Worker Registration -->
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/sw.js');
+        });
+      }
+    </script>
+
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
