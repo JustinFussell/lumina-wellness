@@ -204,13 +204,13 @@
       .reveal-delay-2 { transition-delay: 185ms; }
       .reveal-delay-3 { transition-delay: 275ms; }
 
-      /* Very subtle modern grain for depth (barely perceptible) */
-      .modern-grain {
+      /* Very subtle modern grain for depth (barely perceptible) - applied to body */
+      body {
         background-image: 
           linear-gradient(rgba(139,154,125,0.018) 1px, transparent 1px),
           linear-gradient(90deg, rgba(139,154,125,0.018) 1px, transparent 1px);
         background-size: 4px 4px;
-        pointer-events: none;
+        /* No pointer-events: none here - that was breaking all interactivity */
       }
 
       /* Light parallax */
@@ -262,7 +262,7 @@
     <!-- PWA + Icons (prepared) -->
     <link rel="manifest" href="~/manifest.json" />
 </head>
-<body class="bg-lumina-cream text-lumina-charcoal antialiased modern-grain" data-logged-in="@(User.Identity?.IsAuthenticated == true ? "true" : "false")">
+<body class="bg-lumina-cream text-lumina-charcoal antialiased" data-logged-in="@(User.Identity?.IsAuthenticated == true ? "true" : "false")">
     <!-- Skip to content for accessibility -->
     <a href="#main-content" 
        class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-white px-4 py-2 rounded-2xl shadow z-50">
