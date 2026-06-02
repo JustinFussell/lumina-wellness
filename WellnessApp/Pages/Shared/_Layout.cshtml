@@ -249,6 +249,11 @@
         outline-offset: 3px;
       }
 
+      /* Ensure all interactive elements receive pointer events (defense against any inherited none) */
+      a, button, input, select, textarea, [role="button"], .nav-link, .btn-lumina, .premium-card {
+        pointer-events: auto;
+      }
+
       /* Solid, bold text by default — no more faded look */
       body, .text-lumina-charcoal {
         color: #2F2C27;
